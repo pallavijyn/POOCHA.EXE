@@ -1,840 +1,1472 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Poocha.exe — Edge Guardian</title>
+
+<title>Poocha.exe</title>
 
 <style>
-* {
-    box-sizing: border-box;
-    user-select: none;
+
+*{
+    box-sizing:border-box;
 }
 
-body {
-    margin: 0;
-    background: #090b10;
-    color: #e9edf5;
-    font-family: Arial, Helvetica, sans-serif;
-    overflow: hidden;
+body{
+    margin:0;
+    background:#080a0f;
+    color:white;
+    font-family:Arial,sans-serif;
+    overflow:hidden;
 }
 
-header {
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 28px;
-    border-bottom: 1px solid #252a35;
-    background: #0d1017;
+header{
+    height:70px;
+    background:#10131a;
+    border-bottom:1px solid #292e38;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 25px;
 }
 
-.logo {
-    font-size: 24px;
-    font-weight: 800;
-    letter-spacing: 1px;
+.logo{
+    font-size:25px;
+    font-weight:bold;
 }
 
-.logo span {
-    color: #72e6b1;
+.logo span{
+    color:#69e6ad;
 }
 
-.status {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    font-size: 13px;
-    color: #9da6b8;
+.online{
+    font-size:12px;
+    color:#69e6ad;
 }
 
-.dot {
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: #72e6b1;
-    box-shadow: 0 0 12px #72e6b1;
+.main{
+    height:calc(100vh - 70px);
+    display:flex;
+    gap:20px;
+    padding:20px;
 }
 
-.main {
-    height: calc(100vh - 70px);
-    display: flex;
-    gap: 20px;
-    padding: 20px;
+#game{
+    position:relative;
+    flex:1;
+    background:#11151c;
+    border:2px solid #292f3a;
+    border-radius:15px;
+    overflow:hidden;
 }
 
-.game {
-    position: relative;
-    flex: 1;
-    min-width: 0;
-    border: 1px solid #272d39;
-    border-radius: 16px;
-    overflow: hidden;
-    background: #10141c;
-}
+.table{
+    position:absolute;
+    left:5%;
+    top:8%;
+    width:90%;
+    height:80%;
 
-.table {
-    position: absolute;
-    left: 6%;
-    right: 6%;
-    top: 12%;
-    bottom: 12%;
     background:
-        radial-gradient(circle at 30% 30%, #29303b 0%, #171c25 50%, #12161e 100%);
-    border: 2px solid #303846;
-    border-radius: 18px;
+    radial-gradient(circle,#252c37,#141922);
+
+    border:3px solid #343c49;
+    border-radius:18px;
+
     box-shadow:
-        inset 0 0 60px rgba(0,0,0,.35),
-        0 25px 50px rgba(0,0,0,.45);
+    inset 0 0 60px rgba(0,0,0,.5),
+    0 20px 50px rgba(0,0,0,.5);
 }
 
-.edge {
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 12%;
-    border-left: 2px dashed rgba(255,90,90,.45);
-    background: rgba(255,60,60,.045);
+/* EDGE */
+
+.edge{
+    position:absolute;
+    right:0;
+    top:0;
+    width:16%;
+    height:100%;
+
+    background:rgba(255,50,60,.12);
+
+    border-left:3px dashed #ff5963;
+
+    pointer-events:none;
 }
 
-.edge-label {
-    position: absolute;
-    right: 8px;
-    top: 50%;
-    transform: rotate(90deg) translateX(50%);
-    transform-origin: right top;
-    font-size: 10px;
-    color: #ff7777;
-    letter-spacing: 2px;
+.edgeText{
+    position:absolute;
+    right:10px;
+    top:50%;
+
+    transform:rotate(90deg);
+
+    color:#ff6c75;
+    font-size:11px;
+    letter-spacing:2px;
 }
 
-.instructions {
-    position: absolute;
-    top: 18px;
-    left: 22px;
-    color: #8f98a8;
-    font-size: 12px;
-    z-index: 5;
-}
+/* OBJECT */
 
-.cat {
-    position: absolute;
-    width: 125px;
-    height: 125px;
-    left: 45%;
-    top: 42%;
+.object{
+    position:absolute;
+
+    width:65px;
+    height:65px;
+
+    cursor:grab;
+
+    z-index:10;
+
     transition:
-        left .7s cubic-bezier(.2,.8,.2,1),
-        top .7s cubic-bezier(.2,.8,.2,1),
-        transform .2s;
-    z-index: 20;
-    cursor: pointer;
+    left .2s,
+    top .2s,
+    transform .3s,
+    opacity .5s;
 }
 
-.cat.moving {
-    transform: scale(1.08);
+.object:active{
+    cursor:grabbing;
 }
 
-.ears {
-    position: absolute;
-    width: 100%;
-    height: 55px;
-    top: 5px;
+/* CUP */
+
+.cup{
+    background:linear-gradient(135deg,#eeeeee,#8d98a7);
+
+    border:3px solid white;
+
+    border-radius:
+    8px 8px 18px 18px;
 }
 
-.ear {
-    position: absolute;
-    width: 43px;
-    height: 48px;
-    background: #b8c0cc;
-    border: 3px solid #e1e6ed;
-    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+.cup:after{
+    content:"";
+
+    position:absolute;
+
+    width:22px;
+    height:28px;
+
+    right:-20px;
+    top:14px;
+
+    border:5px solid #aeb7c2;
+
+    border-left:0;
+
+    border-radius:0 15px 15px 0;
 }
 
-.ear.left {
-    left: 8px;
-    transform: rotate(-18deg);
+/* BALL */
+
+.ball{
+    background:radial-gradient(circle at 30% 30%,#ffb4b4,#e64555);
+
+    border-radius:50%;
+
+    border:3px solid #ffd0d0;
 }
 
-.ear.right {
-    right: 8px;
-    transform: rotate(18deg);
+/* PHONE */
+
+.phone{
+    background:#252b35;
+
+    border:3px solid #9ba5b3;
+
+    border-radius:9px;
 }
 
-.angry .ear.left {
-    transform: rotate(-35deg);
+.phone:after{
+    content:"●";
+
+    position:absolute;
+
+    left:25px;
+    top:20px;
+
+    color:#69e6ad;
 }
 
-.angry .ear.right {
-    transform: rotate(35deg);
+/* CAT */
+
+#cat{
+
+    position:absolute;
+
+    width:130px;
+    height:130px;
+
+    left:42%;
+    top:40%;
+
+    z-index:20;
+
+    transition:
+    left 1s cubic-bezier(.2,.8,.2,1),
+    top 1s cubic-bezier(.2,.8,.2,1);
+
+    cursor:pointer;
 }
 
-.head {
-    position: absolute;
-    width: 105px;
-    height: 88px;
-    left: 10px;
-    top: 32px;
-    background: linear-gradient(145deg,#d9dee5,#8e98a6);
-    border: 3px solid #eef2f6;
-    border-radius: 48% 48% 44% 44%;
-    box-shadow: 0 8px 20px rgba(0,0,0,.35);
+/* CAT HEAD */
+
+.head{
+
+    position:absolute;
+
+    width:105px;
+    height:90px;
+
+    left:12px;
+    top:30px;
+
+    background:linear-gradient(145deg,#dfe4ea,#8c96a3);
+
+    border:3px solid white;
+
+    border-radius:50%;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.5);
 }
 
-.eye {
-    position: absolute;
-    width: 15px;
-    height: 20px;
-    background: #71e6b0;
-    border-radius: 50%;
-    top: 31px;
-    box-shadow: 0 0 12px #71e6b0;
+/* EARS */
+
+.ear{
+
+    position:absolute;
+
+    width:48px;
+    height:52px;
+
+    background:#b9c1cc;
+
+    border:3px solid white;
+
+    clip-path:polygon(50% 0,100% 100%,0 100%);
 }
 
-.eye.left {
-    left: 25px;
+.leftEar{
+    left:5px;
+    top:3px;
+    transform:rotate(-15deg);
 }
 
-.eye.right {
-    right: 25px;
+.rightEar{
+    right:5px;
+    top:3px;
+    transform:rotate(15deg);
 }
 
-.angry .eye {
-    background: #ff5e65;
-    box-shadow: 0 0 16px #ff5e65;
-    height: 8px;
-    top: 38px;
+/* EYES */
+
+.eye{
+
+    position:absolute;
+
+    width:16px;
+    height:20px;
+
+    background:#69e6ad;
+
+    border-radius:50%;
+
+    top:32px;
+
+    box-shadow:0 0 15px #69e6ad;
+
+    transition:.2s;
 }
 
-.nose {
-    position: absolute;
-    left: 46px;
-    top: 54px;
-    width: 13px;
-    height: 10px;
-    background: #ff8e9b;
-    border-radius: 50%;
+.leftEye{
+    left:25px;
 }
 
-.mouth {
-    position: absolute;
-    left: 38px;
-    top: 65px;
-    width: 30px;
-    height: 12px;
-    border-bottom: 3px solid #313741;
-    border-radius: 50%;
+.rightEye{
+    right:25px;
 }
 
-.angry .mouth {
-    border-bottom: 0;
-    border-top: 3px solid #313741;
-    top: 68px;
+/* ANGRY */
+
+.angry .eye{
+
+    background:#ff4d58;
+
+    box-shadow:0 0 18px #ff4d58;
+
+    height:7px;
+
+    top:39px;
 }
 
-.whiskers {
-    position: absolute;
-    top: 60px;
-    width: 35px;
-    height: 2px;
-    background: #59616d;
+.angry .head{
+
+    transform:rotate(-3deg);
 }
 
-.whiskers.left {
-    left: -27px;
-    transform: rotate(8deg);
+/* NOSE */
+
+.nose{
+
+    position:absolute;
+
+    width:13px;
+    height:10px;
+
+    background:#ff91a0;
+
+    border-radius:50%;
+
+    left:45px;
+    top:55px;
 }
 
-.whiskers.right {
-    right: -27px;
-    transform: rotate(-8deg);
+/* MOUTH */
+
+.mouth{
+
+    position:absolute;
+
+    left:38px;
+    top:66px;
+
+    width:30px;
+    height:12px;
+
+    border-bottom:3px solid #343943;
+
+    border-radius:50%;
 }
 
-.object {
-    position: absolute;
-    width: 58px;
-    height: 58px;
-    border-radius: 12px;
-    cursor: grab;
-    z-index: 15;
-    transition: left .5s, top .5s, transform .25s, opacity .4s;
-    box-shadow: 0 10px 25px rgba(0,0,0,.4);
+.angry .mouth{
+
+    border-bottom:0;
+
+    border-top:4px solid #343943;
+
+    top:69px;
 }
 
-.object:active {
-    cursor: grabbing;
+/* WHISKERS */
+
+.whisker{
+
+    position:absolute;
+
+    width:35px;
+    height:2px;
+
+    background:#626b77;
+
+    top:62px;
 }
 
-.cup {
-    background: linear-gradient(135deg,#e7ecf2,#8893a1);
-    border: 3px solid #f4f6f9;
-    border-radius: 8px 8px 17px 17px;
+.w1{
+    left:-27px;
+    transform:rotate(10deg);
 }
 
-.cup::after {
-    content: "";
-    position: absolute;
-    width: 20px;
-    height: 25px;
-    right: -18px;
-    top: 12px;
-    border: 5px solid #b5bdc8;
-    border-left: 0;
-    border-radius: 0 15px 15px 0;
+.w2{
+    right:-27px;
+    transform:rotate(-10deg);
 }
 
-.ball {
-    background: radial-gradient(circle at 30% 25%,#ffb0b0,#e44f5c);
-    border-radius: 50%;
-    border: 3px solid #ffccd0;
+/* PAW */
+
+.paw{
+
+    position:absolute;
+
+    width:48px;
+    height:48px;
+
+    background:#c7ced7;
+
+    border-radius:50%;
+
+    left:90px;
+    top:78px;
+
+    opacity:0;
+
+    z-index:30;
 }
 
-.phone {
-    background: linear-gradient(135deg,#39404c,#11151c);
-    border: 3px solid #8f9bab;
-    border-radius: 8px;
+/* SWAT */
+
+.swatting .paw{
+
+    animation:SWAT .6s ease-out;
 }
 
-.phone::after {
-    content: "◉";
-    position: absolute;
-    font-size: 20px;
-    left: 18px;
-    top: 15px;
-    color: #72e6b1;
-}
+@keyframes SWAT{
 
-.swatted {
-    opacity: 0;
-    transform: translate(120px, 70px) rotate(90deg) scale(.6);
-}
-
-.warning {
-    position: absolute;
-    top: 55px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 10px 18px;
-    background: rgba(255,70,80,.12);
-    border: 1px solid rgba(255,90,100,.6);
-    border-radius: 10px;
-    color: #ff858b;
-    font-size: 12px;
-    opacity: 0;
-    transition: opacity .2s;
-    z-index: 30;
-}
-
-.warning.show {
-    opacity: 1;
-}
-
-.paw {
-    position: absolute;
-    width: 55px;
-    height: 55px;
-    background: #c5ccd5;
-    border-radius: 50%;
-    left: 65px;
-    top: 100px;
-    opacity: 0;
-    z-index: 25;
-}
-
-.swatting .paw {
-    animation: swat .55s ease;
-}
-
-@keyframes swat {
-    0% { opacity:0; transform:translate(0,0) rotate(0); }
-    30% { opacity:1; transform:translate(45px,-20px) rotate(-35deg); }
-    70% { opacity:1; transform:translate(80px,10px) rotate(30deg); }
-    100% { opacity:0; transform:translate(110px,35px) rotate(70deg); }
-}
-
-.shake {
-    animation: shake .35s;
-}
-
-@keyframes shake {
-    0%,100% { transform:translateX(0); }
-    25% { transform:translateX(-5px); }
-    75% { transform:translateX(5px); }
-}
-
-.panel {
-    width: 285px;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-}
-
-.card {
-    background: #10141c;
-    border: 1px solid #272d39;
-    border-radius: 14px;
-    padding: 17px;
-}
-
-.card-title {
-    font-size: 11px;
-    color: #7f8999;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    margin-bottom: 14px;
-}
-
-.big-status {
-    font-size: 23px;
-    font-weight: 800;
-}
-
-.safe {
-    color: #72e6b1;
-}
-
-.danger {
-    color: #ff6972;
-}
-
-.bar {
-    height: 7px;
-    background: #242a34;
-    border-radius: 10px;
-    margin-top: 13px;
-    overflow: hidden;
-}
-
-.fill {
-    height: 100%;
-    width: 18%;
-    background: #72e6b1;
-    transition: width .3s, background .3s;
-}
-
-button {
-    width: 100%;
-    border: 1px solid #333b49;
-    background: #191e27;
-    color: #e9edf5;
-    padding: 12px;
-    border-radius: 9px;
-    cursor: pointer;
-    font-weight: 700;
-    margin-top: 8px;
-}
-
-button:hover {
-    background: #222934;
-}
-
-.log {
-    height: 145px;
-    overflow: hidden;
-    font-family: monospace;
-    font-size: 10px;
-    color: #8993a3;
-    line-height: 1.8;
-}
-
-.log div {
-    border-bottom: 1px solid #1d222b;
-}
-
-.log .alert {
-    color: #ff777f;
-}
-
-.log .success {
-    color: #72e6b1;
-}
-
-.help {
-    font-size: 11px;
-    line-height: 1.6;
-    color: #8d96a5;
-}
-
-@media(max-width:800px) {
-    .panel {
-        width: 220px;
-    }
-}
-
-@media(max-width:650px) {
-    .main {
-        flex-direction: column;
+    0%{
+        opacity:0;
+        transform:translate(0,0) rotate(0);
     }
 
-    .panel {
-        width: 100%;
-        height: 220px;
-        overflow-y: auto;
+    25%{
+        opacity:1;
+        transform:translate(35px,-20px) rotate(-30deg);
     }
 
-    .game {
-        min-height: 450px;
+    55%{
+        opacity:1;
+        transform:translate(80px,5px) rotate(30deg);
     }
+
+    100%{
+        opacity:0;
+        transform:translate(110px,30px) rotate(60deg);
+    }
+
 }
+
+/* PANEL */
+
+.panel{
+
+    width:270px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+}
+
+.card{
+
+    background:#11151c;
+
+    border:1px solid #292f3a;
+
+    border-radius:13px;
+
+    padding:18px;
+}
+
+.title{
+
+    font-size:11px;
+
+    color:#7f8998;
+
+    letter-spacing:2px;
+
+    margin-bottom:12px;
+}
+
+.status{
+
+    font-size:22px;
+
+    font-weight:bold;
+
+    color:#69e6ad;
+}
+
+.danger{
+    color:#ff5963;
+}
+
+.bar{
+
+    margin-top:15px;
+
+    height:8px;
+
+    background:#252b34;
+
+    border-radius:10px;
+
+    overflow:hidden;
+}
+
+.fill{
+
+    width:15%;
+
+    height:100%;
+
+    background:#69e6ad;
+
+    transition:.3s;
+}
+
+.log{
+
+    height:170px;
+
+    overflow:hidden;
+
+    font-family:monospace;
+
+    font-size:10px;
+
+    color:#8d97a6;
+
+    line-height:1.8;
+}
+
+.alert{
+    color:#ff6670;
+}
+
+.success{
+    color:#69e6ad;
+}
+
+button{
+
+    width:100%;
+
+    padding:12px;
+
+    border-radius:8px;
+
+    border:1px solid #39414e;
+
+    background:#1a2029;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-weight:bold;
+}
+
+button:hover{
+    background:#252c37;
+}
+
+#message{
+
+    position:absolute;
+
+    top:25px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    padding:12px 20px;
+
+    border-radius:10px;
+
+    background:#171c25;
+
+    border:1px solid #ff5963;
+
+    color:#ff7b82;
+
+    opacity:0;
+
+    transition:.2s;
+
+    z-index:50;
+}
+
+#message.show{
+    opacity:1;
+}
+
 </style>
 </head>
 
 <body>
 
 <header>
-    <div class="logo">🐱 POOCHA<span>.exe</span></div>
-    <div class="status">
-        <div class="dot"></div>
-        EDGE GUARDIAN ONLINE
-    </div>
+
+<div class="logo">
+🐱 POOCHA<span>.exe</span>
+</div>
+
+<div class="online">
+● SYSTEM ONLINE
+</div>
+
 </header>
+
 
 <div class="main">
 
-    <div class="game" id="game">
+<div id="game">
 
-        <div class="instructions">
-            DRAG OBJECTS TOWARD THE EDGE • CLICK THE CAT AT YOUR OWN RISK
-        </div>
+<div id="message">
+⚠ OBJECT DETECTED NEAR EDGE
+</div>
 
-        <div class="warning" id="warning">
-            ⚠ OBJECT TOO CLOSE TO EDGE
-        </div>
+<div class="table" id="table">
 
-        <div class="table" id="table">
-            <div class="edge">
-                <div class="edge-label">DANGER ZONE</div>
-            </div>
+<div class="edge">
+<div class="edgeText">
+DANGER ZONE
+</div>
+</div>
 
-            <div class="cat" id="cat">
-                <div class="ears">
-                    <div class="ear left"></div>
-                    <div class="ear right"></div>
-                </div>
 
-                <div class="head">
-                    <div class="eye left"></div>
-                    <div class="eye right"></div>
-                    <div class="nose"></div>
-                    <div class="mouth"></div>
-                    <div class="whiskers left"></div>
-                    <div class="whiskers right"></div>
-                </div>
+<!-- CAT -->
 
-                <div class="paw"></div>
-            </div>
+<div id="cat">
 
-            <div class="object cup" id="cup" style="left:28%;top:38%;"></div>
-            <div class="object ball" id="ball" style="left:55%;top:24%;"></div>
-            <div class="object phone" id="phone" style="left:68%;top:65%;"></div>
-        </div>
+<div class="ear leftEar"></div>
+<div class="ear rightEar"></div>
 
-    </div>
+<div class="head">
 
-    <div class="panel">
+<div class="eye leftEye"></div>
+<div class="eye rightEye"></div>
 
-        <div class="card">
-            <div class="card-title">System Status</div>
-            <div class="big-status safe" id="systemStatus">MONITORING</div>
+<div class="nose"></div>
 
-            <div class="bar">
-                <div class="fill" id="riskFill"></div>
-            </div>
+<div class="mouth"></div>
 
-            <div style="font-size:11px;color:#7f8999;margin-top:8px;">
-                Edge Risk: <span id="riskText">18%</span>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-title">Interaction</div>
-
-            <button onclick="resetObjects()">RESET TABLE</button>
-
-            <div class="help">
-                🥤 Drag an object into the red danger zone.<br><br>
-                🐱 Click the cat to test its defensive response.
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-title">Activity Log</div>
-            <div class="log" id="log">
-                <div>08:38:01 — system boot</div>
-                <div>08:38:02 — sensors online</div>
-                <div>08:38:03 — monitoring table</div>
-            </div>
-        </div>
-
-    </div>
+<div class="whisker w1"></div>
+<div class="whisker w2"></div>
 
 </div>
 
+<div class="paw"></div>
+
+</div>
+
+
+<!-- OBJECTS -->
+
+<div
+class="object cup"
+id="cup"
+style="left:25%;top:35%;">
+</div>
+
+<div
+class="object ball"
+id="ball"
+style="left:50%;top:25%;">
+</div>
+
+<div
+class="object phone"
+id="phone"
+style="left:65%;top:60%;">
+</div>
+
+
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<div class="card">
+
+<div class="title">
+SYSTEM STATUS
+</div>
+
+<div
+id="status"
+class="status">
+MONITORING
+</div>
+
+<div class="bar">
+<div
+id="fill"
+class="fill">
+</div>
+</div>
+
+<div style="margin-top:8px;font-size:11px;color:#7f8998">
+EDGE RISK:
+<span id="risk">15%</span>
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="title">
+CONTROLS
+</div>
+
+<button onclick="resetGame()">
+RESET TABLE
+</button>
+
+<p style="font-size:11px;color:#8d97a6;line-height:1.6">
+
+🥤 Drag an object into the red zone.<br><br>
+
+🐱 Click the cat to make it hiss.
+
+</p>
+
+</div>
+
+
+<div class="card">
+
+<div class="title">
+ACTIVITY LOG
+</div>
+
+<div id="log" class="log">
+
+<div>
+SYSTEM BOOT
+</div>
+
+<div>
+SENSORS ONLINE
+</div>
+
+<div>
+EDGE MONITORING ACTIVE
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
 <script>
 
-const game = document.getElementById("game");
-const table = document.getElementById("table");
-const cat = document.getElementById("cat");
+/* ==============================
+   POOCHA.EXE
+   ============================== */
 
-const objects = [
-    document.getElementById("cup"),
-    document.getElementById("ball"),
-    document.getElementById("phone")
-];
+const table =
+document.getElementById("table");
 
-let dragged = null;
+const cat =
+document.getElementById("cat");
+
+const objects =
+document.querySelectorAll(".object");
+
+let dragging = null;
+
 let offsetX = 0;
 let offsetY = 0;
-let catBusy = false;
 
-function log(message, type="") {
-    const box = document.getElementById("log");
-    const item = document.createElement("div");
+let busy = false;
 
-    const now = new Date();
-    const time =
-        String(now.getHours()).padStart(2,"0") + ":" +
-        String(now.getMinutes()).padStart(2,"0") + ":" +
-        String(now.getSeconds()).padStart(2,"0");
+
+/* ==============================
+   LOG
+   ============================== */
+
+function addLog(text,type=""){
+
+    const log =
+    document.getElementById("log");
+
+    const item =
+    document.createElement("div");
 
     item.className = type;
-    item.textContent = time + " — " + message;
 
-    box.appendChild(item);
+    item.innerText =
+    new Date().toLocaleTimeString()+
+    " — "+
+    text;
 
-    while(box.children.length > 7) {
-        box.removeChild(box.firstChild);
+    log.appendChild(item);
+
+    while(log.children.length > 7){
+        log.removeChild(log.firstChild);
     }
 
-    box.scrollTop = box.scrollHeight;
+    log.scrollTop =
+    log.scrollHeight;
 }
 
-objects.forEach(obj => {
 
-    obj.addEventListener("pointerdown", e => {
-        dragged = obj;
+/* ==============================
+   DRAGGING
+   ============================== */
 
-        const rect = obj.getBoundingClientRect();
+objects.forEach(obj=>{
 
-        offsetX = e.clientX - rect.left;
-        offsetY = e.clientY - rect.top;
+    obj.addEventListener(
+    "pointerdown",
+    function(e){
 
-        obj.setPointerCapture(e.pointerId);
+        if(busy)return;
+
+        dragging = obj;
+
+        const rect =
+        obj.getBoundingClientRect();
+
+        offsetX =
+        e.clientX - rect.left;
+
+        offsetY =
+        e.clientY - rect.top;
+
+        obj.setPointerCapture(
+        e.pointerId
+        );
+
     });
 
-    obj.addEventListener("pointermove", e => {
 
-        if(dragged !== obj) return;
+    obj.addEventListener(
+    "pointermove",
+    function(e){
 
-        const tableRect = table.getBoundingClientRect();
+        if(dragging !== obj)return;
 
-        let x = e.clientX - tableRect.left - offsetX;
-        let y = e.clientY - tableRect.top - offsetY;
+        const rect =
+        table.getBoundingClientRect();
 
-        x = Math.max(5, Math.min(x, tableRect.width - obj.offsetWidth - 5));
-        y = Math.max(5, Math.min(y, tableRect.height - obj.offsetHeight - 5));
+        let x =
+        e.clientX -
+        rect.left -
+        offsetX;
 
-        obj.style.left = x + "px";
-        obj.style.top = y + "px";
+        let y =
+        e.clientY -
+        rect.top -
+        offsetY;
 
-        checkDanger(obj);
-    });
 
-    obj.addEventListener("pointerup", () => {
-        if(dragged === obj) {
-            dragged = null;
-            checkDanger(obj);
+        x =
+        Math.max(
+        5,
+        Math.min(
+        x,
+        rect.width -
+        obj.offsetWidth -
+        5
+        ));
+
+
+        y =
+        Math.max(
+        5,
+        Math.min(
+        y,
+        rect.height -
+        obj.offsetHeight -
+        5
+        ));
+
+
+        obj.style.left =
+        x+"px";
+
+        obj.style.top =
+        y+"px";
+
+
+        /* EDGE DETECTION */
+
+        const percentage =
+        (x+obj.offsetWidth) /
+        rect.width;
+
+
+        if(percentage > 0.78){
+
+            showDanger();
+
+        }else{
+
+            hideDanger();
+
         }
+
+    });
+
+
+    obj.addEventListener(
+    "pointerup",
+    function(){
+
+        if(dragging !== obj)return;
+
+        dragging = null;
+
+
+        const rect =
+        table.getBoundingClientRect();
+
+        const x =
+        parseFloat(obj.style.left);
+
+
+        const percentage =
+        (x+obj.offsetWidth) /
+        rect.width;
+
+
+        if(percentage > 0.78){
+
+            setTimeout(
+            ()=>{
+                attack(obj);
+            },
+            150
+            );
+
+        }
+
     });
 
 });
 
-function checkDanger(obj) {
 
-    const tableWidth = table.clientWidth;
-    const x = parseFloat(obj.style.left);
+/* ==============================
+   EDGE WARNING
+   ============================== */
 
-    const percentage = x / tableWidth;
+function showDanger(){
 
-    if(percentage > 0.78) {
+    document
+    .getElementById("message")
+    .classList.add("show");
 
-        document.getElementById("warning").classList.add("show");
+    document
+    .getElementById("status")
+    .innerText =
+    "OBJECT AT RISK";
 
-        document.getElementById("systemStatus").textContent = "OBJECT AT RISK";
-        document.getElementById("systemStatus").className = "big-status danger";
+    document
+    .getElementById("status")
+    .className =
+    "status danger";
 
-        document.getElementById("riskFill").style.width = "91%";
-        document.getElementById("riskFill").style.background = "#ff6972";
+    document
+    .getElementById("fill")
+    .style.width =
+    "92%";
 
-        document.getElementById("riskText").textContent = "91%";
+    document
+    .getElementById("fill")
+    .style.background =
+    "#ff5963";
 
-        if(!obj.dataset.warned) {
-            obj.dataset.warned = "true";
-            log("EDGE PROXIMITY DETECTED", "alert");
+    document
+    .getElementById("risk")
+    .innerText =
+    "92%";
 
-            setTimeout(() => {
-                if(!dragged) {
-                    deployCat(obj);
-                }
-            }, 600);
+}
+
+
+function hideDanger(){
+
+    if(busy)return;
+
+    document
+    .getElementById("message")
+    .classList.remove("show");
+
+    document
+    .getElementById("status")
+    .innerText =
+    "MONITORING";
+
+    document
+    .getElementById("status")
+    .className =
+    "status";
+
+    document
+    .getElementById("fill")
+    .style.width =
+    "15%";
+
+    document
+    .getElementById("fill")
+    .style.background =
+    "#69e6ad";
+
+    document
+    .getElementById("risk")
+    .innerText =
+    "15%";
+
+}
+
+
+/* ==============================
+   CAT ATTACK
+   ============================== */
+
+function attack(obj){
+
+    if(busy)return;
+
+    busy = true;
+
+    addLog(
+    "EDGE THREAT CONFIRMED",
+    "alert"
+    );
+
+
+    document
+    .getElementById("status")
+    .innerText =
+    "CAT DEPLOYED";
+
+    document
+    .getElementById("status")
+    .className =
+    "status danger";
+
+
+    /*
+       GET OBJECT POSITION
+    */
+
+    const x =
+    parseFloat(obj.style.left);
+
+    const y =
+    parseFloat(obj.style.top);
+
+
+    /*
+       MOVE CAT NEXT TO OBJECT
+    */
+
+    cat.style.left =
+    Math.max(
+    10,
+    x - 115
+    )+"px";
+
+    cat.style.top =
+    Math.max(
+    10,
+    y - 20
+    )+"px";
+
+
+    addLog(
+    "POOCHA MOVING TO TARGET",
+    "alert"
+    );
+
+
+    /*
+       WAIT FOR CAT TO ARRIVE
+    */
+
+    setTimeout(
+    ()=>{
+
+        addLog(
+        "TARGET ACQUIRED",
+        "alert"
+        );
+
+
+        cat.classList.add(
+        "swatting"
+        );
+
+
+        /*
+           HISS
+        */
+
+        loudHiss();
+
+
+        addLog(
+        "PAW MECHANISM ACTIVATED",
+        "alert"
+        );
+
+
+        /*
+           SWAT OBJECT
+        */
+
+        setTimeout(
+        ()=>{
+
+            obj.style.transform =
+            "translate(150px,80px) rotate(100deg)";
+
+            obj.style.opacity =
+            "0";
+
+
+            addLog(
+            "OBJECT SWATTED OFF TABLE",
+            "success"
+            );
+
+
+            document
+            .getElementById("status")
+            .innerText =
+            "THREAT REMOVED";
+
+            document
+            .getElementById("status")
+            .className =
+            "status";
+
+
+            document
+            .getElementById("fill")
+            .style.width =
+            "5%";
+
+            document
+            .getElementById("fill")
+            .style.background =
+            "#69e6ad";
+
+            document
+            .getElementById("risk")
+            .innerText =
+            "5%";
+
+
+        },
+        450
+        );
+
+
+        /*
+           RETURN CAT
+        */
+
+        setTimeout(
+        ()=>{
+
+            cat.classList.remove(
+            "swatting"
+            );
+
+
+            cat.style.left =
+            "42%";
+
+            cat.style.top =
+            "40%";
+
+
+            setTimeout(
+            ()=>{
+
+                busy = false;
+
+                resetStatus();
+
+            },
+            1000
+            );
+
+        },
+        1500
+        );
+
+
+    },
+    1000
+    );
+
+}
+
+
+/* ==============================
+   HISSING SOUND
+   ============================== */
+
+function loudHiss(){
+
+    try{
+
+        const AudioContext =
+        window.AudioContext ||
+        window.webkitAudioContext;
+
+        const ctx =
+        new AudioContext();
+
+
+        /*
+           WHITE NOISE
+        */
+
+        const buffer =
+        ctx.createBuffer(
+        1,
+        ctx.sampleRate * 0.8,
+        ctx.sampleRate
+        );
+
+
+        const data =
+        buffer.getChannelData(0);
+
+
+        for(
+        let i=0;
+        i<data.length;
+        i++
+        ){
+
+            data[i] =
+            (Math.random()*2-1)
+            *
+            Math.pow(
+            1-i/data.length,
+            0.5
+            );
+
         }
 
-    } else {
 
-        if(!dragged) {
-            obj.dataset.warned = "";
-        }
+        const source =
+        ctx.createBufferSource();
 
-        document.getElementById("warning").classList.remove("show");
-        document.getElementById("systemStatus").textContent = "MONITORING";
-        document.getElementById("systemStatus").className = "big-status safe";
-        document.getElementById("riskFill").style.width = "18%";
-        document.getElementById("riskFill").style.background = "#72e6b1";
-        document.getElementById("riskText").textContent = "18%";
+        source.buffer =
+        buffer;
+
+
+        /*
+           FILTER = HISSING
+        */
+
+        const filter =
+        ctx.createBiquadFilter();
+
+        filter.type =
+        "highpass";
+
+        filter.frequency.value =
+        1800;
+
+
+        /*
+           VOLUME
+        */
+
+        const gain =
+        ctx.createGain();
+
+        gain.gain.value =
+        1.8;
+
+
+        source
+        .connect(filter)
+        .connect(gain)
+        .connect(ctx.destination);
+
+
+        source.start();
+
+
+        /*
+           EXTRA LOW GROWL
+        */
+
+        const osc =
+        ctx.createOscillator();
+
+        const oscGain =
+        ctx.createGain();
+
+        osc.type =
+        "sawtooth";
+
+        osc.frequency.value =
+        90;
+
+        oscGain.gain.value =
+        0.15;
+
+
+        osc
+        .connect(oscGain)
+        .connect(ctx.destination);
+
+        osc.start();
+
+        osc.stop(
+        ctx.currentTime + 0.8
+        );
+
     }
+    catch(e){
+
+        console.log(
+        "Audio unavailable"
+        );
+
+    }
+
 }
 
-function deployCat(obj) {
 
-    if(catBusy || obj.classList.contains("swatted")) return;
+/* ==============================
+   CAT CLICK
+   ============================== */
 
-    catBusy = true;
+cat.addEventListener(
+"click",
+function(){
 
-    log("THREAT CONFIRMED — DEPLOYING POOCHA", "alert");
+    if(busy)return;
 
-    const objX = parseFloat(obj.style.left);
-    const objY = parseFloat(obj.style.top);
+    busy = true;
 
-    cat.style.left = Math.max(5, objX - 110) + "px";
-    cat.style.top = Math.max(5, objY - 30) + "px";
+    cat.classList.add(
+    "angry"
+    );
 
-    cat.classList.add("moving");
 
-    setTimeout(() => {
+    document
+    .getElementById("status")
+    .innerText =
+    "HISS MODE";
 
-        cat.classList.add("swatting");
-        cat.classList.add("angry");
+    document
+    .getElementById("status")
+    .className =
+    "status danger";
 
-        log("PAW MECHANISM ACTIVATED", "alert");
 
-        setTimeout(() => {
+    addLog(
+    "HUMAN CONTACT DETECTED",
+    "alert"
+    );
 
-            obj.classList.add("swatted");
 
-            log("OBJECT SWATTED OFF TABLE", "success");
+    loudHiss();
 
-            document.getElementById("systemStatus").textContent = "THREAT REMOVED";
-            document.getElementById("systemStatus").className = "big-status safe";
 
-            document.getElementById("riskFill").style.width = "5%";
-            document.getElementById("riskFill").style.background = "#72e6b1";
-            document.getElementById("riskText").textContent = "5%";
+    setTimeout(
+    ()=>{
 
-        }, 350);
+        cat.classList.remove(
+        "angry"
+        );
 
-        setTimeout(() => {
-            cat.classList.remove("swatting");
-            cat.classList.remove("angry");
-            cat.classList.remove("moving");
+        busy = false;
 
-            cat.style.left = "45%";
-            cat.style.top = "42%";
+        resetStatus();
 
-            document.getElementById("warning").classList.remove("show");
+    },
+    1200
+    );
 
-            catBusy = false;
-
-        }, 1200);
-
-    }, 700);
-}
-
-cat.addEventListener("click", () => {
-
-    if(catBusy) return;
-
-    catBusy = true;
-
-    cat.classList.add("angry");
-    game.classList.add("shake");
-
-    log("UNAUTHORIZED CAT CONTACT", "alert");
-
-    document.getElementById("systemStatus").textContent = "HISS MODE";
-    document.getElementById("systemStatus").className = "big-status danger";
-
-    document.getElementById("riskFill").style.width = "100%";
-    document.getElementById("riskFill").style.background = "#ff6972";
-    document.getElementById("riskText").textContent = "100%";
-
-    speak("Hiss! Don't touch me!");
-
-    setTimeout(() => {
-        cat.classList.remove("angry");
-        game.classList.remove("shake");
-
-        document.getElementById("systemStatus").textContent = "MONITORING";
-        document.getElementById("systemStatus").className = "big-status safe";
-
-        document.getElementById("riskFill").style.width = "18%";
-        document.getElementById("riskFill").style.background = "#72e6b1";
-        document.getElementById("riskText").textContent = "18%";
-
-        catBusy = false;
-
-    }, 1300);
 });
 
-function speak(text) {
 
-    if("speechSynthesis" in window) {
+/* ==============================
+   RESET
+   ============================== */
 
-        speechSynthesis.cancel();
+function resetGame(){
 
-        const voice = new SpeechSynthesisUtterance(text);
+    objects[0].style.left =
+    "25%";
 
-        voice.rate = 0.9;
-        voice.pitch = 1.4;
-        voice.volume = 1;
+    objects[0].style.top =
+    "35%";
 
-        speechSynthesis.speak(voice);
-    }
-}
 
-function resetObjects() {
+    objects[1].style.left =
+    "50%";
 
-    objects[0].style.left = "28%";
-    objects[0].style.top = "38%";
+    objects[1].style.top =
+    "25%";
 
-    objects[1].style.left = "55%";
-    objects[1].style.top = "24%";
 
-    objects[2].style.left = "68%";
-    objects[2].style.top = "65%";
+    objects[2].style.left =
+    "65%";
 
-    objects.forEach(o => {
-        o.classList.remove("swatted");
-        o.dataset.warned = "";
+    objects[2].style.top =
+    "60%";
+
+
+    objects.forEach(
+    o=>{
+        o.style.opacity="1";
+        o.style.transform="";
     });
 
-    cat.style.left = "45%";
-    cat.style.top = "42%";
 
-    cat.classList.remove("angry","moving","swatting");
+    cat.style.left =
+    "42%";
 
-    document.getElementById("warning").classList.remove("show");
-    document.getElementById("systemStatus").textContent = "MONITORING";
-    document.getElementById("systemStatus").className = "big-status safe";
+    cat.style.top =
+    "40%";
 
-    document.getElementById("riskFill").style.width = "18%";
-    document.getElementById("riskFill").style.background = "#72e6b1";
-    document.getElementById("riskText").textContent = "18%";
 
-    log("TABLE RESET — MONITORING ACTIVE", "success");
+    cat.classList.remove(
+    "angry",
+    "swatting"
+    );
+
+
+    busy=false;
+
+    resetStatus();
+
+    addLog(
+    "TABLE RESET",
+    "success"
+    );
+
 }
 
-log("POOCHA.EXE READY", "success");
+
+function resetStatus(){
+
+    document
+    .getElementById("message")
+    .classList.remove("show");
+
+    document
+    .getElementById("status")
+    .innerText =
+    "MONITORING";
+
+    document
+    .getElementById("status")
+    .className =
+    "status";
+
+    document
+    .getElementById("fill")
+    .style.width =
+    "15%";
+
+    document
+    .getElementById("fill")
+    .style.background =
+    "#69e6ad";
+
+    document
+    .getElementById("risk")
+    .innerText =
+    "15%";
+
+}
+
 
 </script>
 
