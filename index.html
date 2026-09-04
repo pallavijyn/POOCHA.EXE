@@ -1,143 +1,320 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Poocha.exe</title>
+<title>Poocha.exe — Autonomous Table Guardian</title>
 
 <style>
 
+/* =========================
+   GLOBAL
+========================= */
+
 *{
     box-sizing:border-box;
+    user-select:none;
 }
 
 body{
     margin:0;
-    background:#080a0f;
-    color:white;
-    font-family:Arial,sans-serif;
+    min-height:100vh;
+    background:
+        radial-gradient(circle at 20% 10%,#1c2630 0%,transparent 35%),
+        radial-gradient(circle at 90% 90%,#18231f 0%,transparent 35%),
+        #080b10;
+    color:#f3f6f8;
+    font-family:Arial,Helvetica,sans-serif;
     overflow:hidden;
 }
 
+
+/* =========================
+   HEADER
+========================= */
+
 header{
-    height:70px;
-    background:#10131a;
-    border-bottom:1px solid #292e38;
+    height:72px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 25px;
+
+    padding:0 30px;
+
+    background:rgba(12,16,22,.94);
+
+    border-bottom:1px solid #27303a;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.brandIcon{
+    width:42px;
+    height:42px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:25px;
+
+    background:#18221f;
+    border:1px solid #35483f;
+    border-radius:12px;
 }
 
 .logo{
-    font-size:25px;
-    font-weight:bold;
+    font-size:24px;
+    font-weight:800;
+    letter-spacing:.5px;
 }
 
 .logo span{
-    color:#69e6ad;
+    color:#73e6b1;
+}
+
+.subtitle{
+    color:#77818e;
+    font-size:10px;
+    letter-spacing:2px;
+    margin-top:3px;
 }
 
 .online{
-    font-size:12px;
-    color:#69e6ad;
+    display:flex;
+    align-items:center;
+    gap:9px;
+
+    font-size:11px;
+    letter-spacing:1px;
+    color:#7ee8b5;
 }
+
+.onlineDot{
+    width:9px;
+    height:9px;
+
+    border-radius:50%;
+
+    background:#73e6b1;
+
+    box-shadow:0 0 14px #73e6b1;
+}
+
+
+/* =========================
+   MAIN
+========================= */
 
 .main{
-    height:calc(100vh - 70px);
+    height:calc(100vh - 72px);
+
     display:flex;
-    gap:20px;
-    padding:20px;
+    gap:18px;
+
+    padding:18px;
 }
 
-#game{
+
+/* =========================
+   GAME AREA
+========================= */
+
+.game{
     position:relative;
-    flex:1;
-    background:#11151c;
-    border:2px solid #292f3a;
-    border-radius:15px;
-    overflow:hidden;
-}
 
-.table{
-    position:absolute;
-    left:5%;
-    top:8%;
-    width:90%;
-    height:80%;
+    flex:1;
+
+    min-width:0;
+
+    overflow:hidden;
+
+    border:1px solid #2b343e;
+    border-radius:20px;
 
     background:
-    radial-gradient(circle,#252c37,#141922);
-
-    border:3px solid #343c49;
-    border-radius:18px;
+        radial-gradient(circle at 50% 40%,#182029,#0d1117 70%);
 
     box-shadow:
-    inset 0 0 60px rgba(0,0,0,.5),
-    0 20px 50px rgba(0,0,0,.5);
+        0 20px 60px rgba(0,0,0,.35);
 }
 
-/* EDGE */
 
-.edge{
+/* little grid */
+
+.game:before{
+    content:"";
+
     position:absolute;
-    right:0;
-    top:0;
-    width:16%;
-    height:100%;
+    inset:0;
 
-    background:rgba(255,50,60,.12);
+    opacity:.08;
 
-    border-left:3px dashed #ff5963;
+    background-image:
+        linear-gradient(#ffffff 1px,transparent 1px),
+        linear-gradient(90deg,#ffffff 1px,transparent 1px);
+
+    background-size:40px 40px;
 
     pointer-events:none;
 }
 
-.edgeText{
+
+/* =========================
+   TOP INFO
+========================= */
+
+.demoTitle{
     position:absolute;
-    right:10px;
-    top:50%;
 
-    transform:rotate(90deg);
+    top:20px;
+    left:25px;
 
-    color:#ff6c75;
-    font-size:11px;
-    letter-spacing:2px;
+    z-index:50;
 }
 
-/* OBJECT */
+.demoTitle h1{
+    margin:0;
+
+    font-size:18px;
+}
+
+.demoTitle p{
+    margin:5px 0 0;
+
+    font-size:10px;
+
+    color:#77818d;
+
+    letter-spacing:1px;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.table{
+    position:absolute;
+
+    left:5%;
+    right:5%;
+
+    top:13%;
+    bottom:10%;
+
+    overflow:hidden;
+
+    border-radius:22px;
+
+    background:
+        radial-gradient(circle at 35% 35%,#303944,#171d25 75%);
+
+    border:3px solid #3a4450;
+
+    box-shadow:
+        inset 0 0 80px rgba(0,0,0,.55),
+        0 25px 50px rgba(0,0,0,.45);
+}
+
+
+/* =========================
+   EDGE
+========================= */
+
+.edge{
+    position:absolute;
+
+    right:0;
+    top:0;
+    bottom:0;
+
+    width:17%;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255,75,85,.02),
+            rgba(255,75,85,.15)
+        );
+
+    border-left:2px dashed rgba(255,92,100,.8);
+
+    pointer-events:none;
+}
+
+.edgeLabel{
+    position:absolute;
+
+    right:8px;
+    top:50%;
+
+    transform:rotate(90deg) translateX(50%);
+
+    color:#ff737b;
+
+    font-size:9px;
+
+    letter-spacing:3px;
+}
+
+
+/* =========================
+   OBJECTS
+========================= */
 
 .object{
     position:absolute;
 
-    width:65px;
-    height:65px;
-
-    cursor:grab;
+    width:62px;
+    height:62px;
 
     z-index:10;
 
+    cursor:grab;
+
     transition:
-    left .2s,
-    top .2s,
-    transform .3s,
-    opacity .5s;
+        transform .5s,
+        opacity .5s;
+
+    filter:drop-shadow(0 10px 12px rgba(0,0,0,.4));
 }
 
 .object:active{
     cursor:grabbing;
 }
 
+
 /* CUP */
 
 .cup{
-    background:linear-gradient(135deg,#eeeeee,#8d98a7);
+    background:
+        linear-gradient(135deg,#ffffff,#aab4bf);
 
-    border:3px solid white;
+    border:3px solid #edf1f4;
 
-    border-radius:
-    8px 8px 18px 18px;
+    border-radius:8px 8px 18px 18px;
+}
+
+.cup:before{
+    content:"";
+
+    position:absolute;
+
+    width:34px;
+    height:8px;
+
+    left:11px;
+    top:-6px;
+
+    border-radius:50%;
+
+    background:#636d78;
 }
 
 .cup:after{
@@ -145,262 +322,393 @@ header{
 
     position:absolute;
 
-    width:22px;
-    height:28px;
+    width:21px;
+    height:26px;
 
     right:-20px;
-    top:14px;
+    top:13px;
 
-    border:5px solid #aeb7c2;
-
+    border:5px solid #aab3bd;
     border-left:0;
 
     border-radius:0 15px 15px 0;
 }
 
+
 /* BALL */
 
 .ball{
-    background:radial-gradient(circle at 30% 30%,#ffb4b4,#e64555);
-
     border-radius:50%;
 
-    border:3px solid #ffd0d0;
+    background:
+        radial-gradient(
+            circle at 30% 25%,
+            #ffd1d5,
+            #ff6571 45%,
+            #c93647
+        );
+
+    border:3px solid #ffb9bf;
 }
+
 
 /* PHONE */
 
 .phone{
-    background:#252b35;
+    border-radius:10px;
 
-    border:3px solid #9ba5b3;
+    background:
+        linear-gradient(145deg,#343d49,#11151b);
 
-    border-radius:9px;
+    border:3px solid #8994a2;
+}
+
+.phone:before{
+    content:"";
+
+    position:absolute;
+
+    inset:7px;
+
+    border-radius:5px;
+
+    background:#17252a;
+
+    border:1px solid #52606b;
 }
 
 .phone:after{
-    content:"●";
+    content:"🐾";
 
     position:absolute;
 
-    left:25px;
-    top:20px;
+    left:17px;
+    top:18px;
 
-    color:#69e6ad;
+    font-size:20px;
 }
 
-/* CAT */
+
+/* =========================
+   CAT
+========================= */
 
 #cat{
-
     position:absolute;
 
-    width:130px;
-    height:130px;
+    width:145px;
+    height:145px;
 
     left:42%;
-    top:40%;
+    top:39%;
 
-    z-index:20;
-
-    transition:
-    left 1s cubic-bezier(.2,.8,.2,1),
-    top 1s cubic-bezier(.2,.8,.2,1);
+    z-index:30;
 
     cursor:pointer;
+
+    transition:
+        left 1s cubic-bezier(.18,.85,.22,1),
+        top 1s cubic-bezier(.18,.85,.22,1),
+        transform .2s;
 }
 
-/* CAT HEAD */
 
-.head{
+/* body */
 
+.catBody{
     position:absolute;
 
-    width:105px;
-    height:90px;
+    width:85px;
+    height:55px;
 
-    left:12px;
-    top:30px;
+    left:30px;
+    top:85px;
 
-    background:linear-gradient(145deg,#dfe4ea,#8c96a3);
+    border-radius:45px 45px 25px 25px;
+
+    background:
+        linear-gradient(145deg,#f4f6f7,#aab4bf);
+
+    border:3px solid #ffffff;
+
+    box-shadow:0 12px 20px rgba(0,0,0,.35);
+}
+
+
+/* head */
+
+.catHead{
+    position:absolute;
+
+    width:108px;
+    height:92px;
+
+    left:18px;
+    top:25px;
+
+    border-radius:52% 52% 47% 47%;
+
+    background:
+        linear-gradient(145deg,#f5f7f8,#aab4bf);
 
     border:3px solid white;
 
-    border-radius:50%;
-
-    box-shadow:0 10px 25px rgba(0,0,0,.5);
+    box-shadow:
+        0 12px 25px rgba(0,0,0,.45);
 }
 
-/* EARS */
 
-.ear{
+/* ears */
 
+.catEar{
     position:absolute;
 
     width:48px;
-    height:52px;
+    height:53px;
 
-    background:#b9c1cc;
+    background:#d7dde3;
 
     border:3px solid white;
 
     clip-path:polygon(50% 0,100% 100%,0 100%);
+
+    z-index:-1;
 }
 
-.leftEar{
+.catEar.left{
     left:5px;
-    top:3px;
+    top:0;
+
     transform:rotate(-15deg);
 }
 
-.rightEar{
+.catEar.right{
     right:5px;
-    top:3px;
+    top:0;
+
     transform:rotate(15deg);
 }
 
-/* EYES */
 
-.eye{
+/* inner ears */
+
+.catEar:after{
+    content:"";
 
     position:absolute;
 
-    width:16px;
-    height:20px;
+    width:24px;
+    height:28px;
 
-    background:#69e6ad;
+    left:12px;
+    top:12px;
 
-    border-radius:50%;
+    background:#f2a4af;
+
+    clip-path:polygon(50% 0,100% 100%,0 100%);
+}
+
+
+/* eyes */
+
+.catEye{
+    position:absolute;
+
+    width:17px;
+    height:22px;
 
     top:32px;
 
-    box-shadow:0 0 15px #69e6ad;
+    border-radius:50%;
 
-    transition:.2s;
+    background:#70e8b3;
+
+    box-shadow:
+        0 0 12px #70e8b3;
 }
 
-.leftEye{
+.catEye.left{
     left:25px;
 }
 
-.rightEye{
+.catEye.right{
     right:25px;
 }
 
-/* ANGRY */
 
-.angry .eye{
+/* pupils */
 
-    background:#ff4d58;
+.catEye:after{
+    content:"";
 
-    box-shadow:0 0 18px #ff4d58;
+    position:absolute;
 
-    height:7px;
+    width:5px;
+    height:15px;
+
+    left:6px;
+    top:4px;
+
+    border-radius:50%;
+
+    background:#17201c;
+}
+
+
+/* nose */
+
+.catNose{
+    position:absolute;
+
+    width:14px;
+    height:11px;
+
+    left:45px;
+    top:56px;
+
+    background:#f58f9c;
+
+    border-radius:50%;
+}
+
+
+/* mouth */
+
+.catMouth{
+    position:absolute;
+
+    width:30px;
+    height:15px;
+
+    left:38px;
+    top:65px;
+
+    border-bottom:3px solid #4a5159;
+
+    border-radius:50%;
+}
+
+
+/* whiskers */
+
+.whisker{
+    position:absolute;
+
+    width:37px;
+    height:2px;
+
+    background:#737c86;
+
+    top:63px;
+}
+
+.whisker.l1{
+    left:-30px;
+    transform:rotate(8deg);
+}
+
+.whisker.l2{
+    left:-30px;
+    top:70px;
+    transform:rotate(-5deg);
+}
+
+.whisker.r1{
+    right:-30px;
+    transform:rotate(-8deg);
+}
+
+.whisker.r2{
+    right:-30px;
+    top:70px;
+    transform:rotate(5deg);
+}
+
+
+/* tail */
+
+.tail{
+    position:absolute;
+
+    width:55px;
+    height:55px;
+
+    left:98px;
+    top:83px;
+
+    border:9px solid #aeb8c2;
+
+    border-left-color:transparent;
+    border-bottom-color:transparent;
+
+    border-radius:50%;
+}
+
+
+/* =========================
+   ANGRY CAT
+========================= */
+
+.angry .catEye{
+    background:#ff4f5c;
+
+    box-shadow:0 0 18px #ff4f5c;
+
+    height:9px;
 
     top:39px;
 }
 
-.angry .head{
-
-    transform:rotate(-3deg);
+.angry .catEye:after{
+    display:none;
 }
 
-/* NOSE */
-
-.nose{
-
-    position:absolute;
-
-    width:13px;
-    height:10px;
-
-    background:#ff91a0;
-
-    border-radius:50%;
-
-    left:45px;
-    top:55px;
-}
-
-/* MOUTH */
-
-.mouth{
-
-    position:absolute;
-
-    left:38px;
-    top:66px;
-
-    width:30px;
-    height:12px;
-
-    border-bottom:3px solid #343943;
-
-    border-radius:50%;
-}
-
-.angry .mouth{
-
+.angry .catMouth{
     border-bottom:0;
 
-    border-top:4px solid #343943;
+    border-top:4px solid #41474f;
 
     top:69px;
 }
 
-/* WHISKERS */
-
-.whisker{
-
-    position:absolute;
-
-    width:35px;
-    height:2px;
-
-    background:#626b77;
-
-    top:62px;
+.angry .catEar.left{
+    transform:rotate(-35deg);
 }
 
-.w1{
-    left:-27px;
-    transform:rotate(10deg);
+.angry .catEar.right{
+    transform:rotate(35deg);
 }
 
-.w2{
-    right:-27px;
-    transform:rotate(-10deg);
-}
 
-/* PAW */
+/* =========================
+   PAW
+========================= */
 
 .paw{
-
     position:absolute;
 
-    width:48px;
-    height:48px;
+    width:52px;
+    height:52px;
 
-    background:#c7ced7;
-
-    border-radius:50%;
-
-    left:90px;
-    top:78px;
+    left:92px;
+    top:79px;
 
     opacity:0;
 
-    z-index:30;
-}
+    border-radius:50%;
 
-/* SWAT */
+    background:#d5dce3;
+
+    border:3px solid white;
+
+    z-index:50;
+}
 
 .swatting .paw{
-
-    animation:SWAT .6s ease-out;
+    animation:swat .65s ease-out;
 }
 
-@keyframes SWAT{
+@keyframes swat{
 
     0%{
         opacity:0;
@@ -409,229 +717,389 @@ header{
 
     25%{
         opacity:1;
-        transform:translate(35px,-20px) rotate(-30deg);
+        transform:translate(25px,-25px) rotate(-35deg);
     }
 
     55%{
         opacity:1;
-        transform:translate(80px,5px) rotate(30deg);
+        transform:translate(70px,5px) rotate(35deg);
     }
 
     100%{
         opacity:0;
-        transform:translate(110px,30px) rotate(60deg);
+        transform:translate(115px,35px) rotate(70deg);
     }
-
 }
 
-/* PANEL */
+
+/* =========================
+   WARNING
+========================= */
+
+.warning{
+    position:absolute;
+
+    top:75px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    z-index:60;
+
+    padding:12px 22px;
+
+    border-radius:12px;
+
+    background:rgba(80,20,25,.9);
+
+    border:1px solid #ff6069;
+
+    color:#ff9298;
+
+    font-size:11px;
+
+    letter-spacing:1px;
+
+    opacity:0;
+
+    transition:.25s;
+}
+
+.warning.show{
+    opacity:1;
+}
+
+
+/* =========================
+   SIDE PANEL
+========================= */
 
 .panel{
+    width:290px;
 
-    width:270px;
+    flex-shrink:0;
 
     display:flex;
 
     flex-direction:column;
 
-    gap:15px;
+    gap:13px;
 }
 
 .card{
-
-    background:#11151c;
-
-    border:1px solid #292f3a;
-
-    border-radius:13px;
-
     padding:18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(22,27,34,.98),
+            rgba(13,17,23,.98)
+        );
+
+    border:1px solid #29323c;
+
+    border-radius:15px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.15);
 }
 
-.title{
+.cardTitle{
+    color:#707b88;
 
-    font-size:11px;
-
-    color:#7f8998;
+    font-size:9px;
 
     letter-spacing:2px;
+
+    text-transform:uppercase;
 
     margin-bottom:12px;
 }
 
 .status{
-
     font-size:22px;
 
-    font-weight:bold;
+    font-weight:800;
 
-    color:#69e6ad;
+    color:#72e6b1;
 }
 
-.danger{
-    color:#ff5963;
+.status.danger{
+    color:#ff6570;
 }
 
-.bar{
+.statusSub{
+    margin-top:5px;
+
+    color:#77818e;
+
+    font-size:10px;
+}
+
+
+/* risk */
+
+.riskBar{
+    height:8px;
 
     margin-top:15px;
 
-    height:8px;
-
-    background:#252b34;
+    background:#252c34;
 
     border-radius:10px;
 
     overflow:hidden;
 }
 
-.fill{
-
-    width:15%;
-
+.riskFill{
     height:100%;
 
-    background:#69e6ad;
+    width:12%;
+
+    background:#72e6b1;
 
     transition:.3s;
 }
 
-.log{
+.riskNumber{
+    margin-top:7px;
 
-    height:170px;
+    font-size:10px;
+
+    color:#7d8794;
+}
+
+
+/* button */
+
+button{
+    width:100%;
+
+    padding:12px;
+
+    border-radius:9px;
+
+    border:1px solid #39434e;
+
+    background:#1b222b;
+
+    color:#eef2f5;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+button:hover{
+    background:#27303a;
+
+    transform:translateY(-1px);
+}
+
+
+/* log */
+
+.log{
+    height:145px;
 
     overflow:hidden;
 
     font-family:monospace;
 
+    font-size:9px;
+
+    line-height:1.9;
+
+    color:#7d8793;
+}
+
+.log div{
+    border-bottom:1px solid #1e252d;
+}
+
+.log .alert{
+    color:#ff6972;
+}
+
+.log .success{
+    color:#72e6b1;
+}
+
+
+/* instructions */
+
+.instructions{
     font-size:10px;
 
-    color:#8d97a6;
+    line-height:1.7;
 
-    line-height:1.8;
+    color:#808b98;
 }
 
-.alert{
-    color:#ff6670;
+.highlight{
+    color:#72e6b1;
 }
 
-.success{
-    color:#69e6ad;
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:850px){
+
+    .panel{
+        width:230px;
+    }
+
 }
 
-button{
+@media(max-width:650px){
 
-    width:100%;
+    body{
+        overflow:auto;
+    }
 
-    padding:12px;
+    .main{
+        height:auto;
 
-    border-radius:8px;
+        flex-direction:column;
+    }
 
-    border:1px solid #39414e;
+    .game{
+        height:550px;
+        min-height:550px;
+    }
 
-    background:#1a2029;
+    .panel{
+        width:100%;
+    }
 
-    color:white;
-
-    cursor:pointer;
-
-    font-weight:bold;
-}
-
-button:hover{
-    background:#252c37;
-}
-
-#message{
-
-    position:absolute;
-
-    top:25px;
-
-    left:50%;
-
-    transform:translateX(-50%);
-
-    padding:12px 20px;
-
-    border-radius:10px;
-
-    background:#171c25;
-
-    border:1px solid #ff5963;
-
-    color:#ff7b82;
-
-    opacity:0;
-
-    transition:.2s;
-
-    z-index:50;
-}
-
-#message.show{
-    opacity:1;
 }
 
 </style>
 </head>
 
+
 <body>
+
 
 <header>
 
-<div class="logo">
-🐱 POOCHA<span>.exe</span>
+<div class="brand">
+
+<div class="brandIcon">
+🐱
 </div>
 
+<div>
+
+<div class="logo">
+POOCHA<span>.exe</span>
+</div>
+
+<div class="subtitle">
+AUTONOMOUS TABLE GUARDIAN
+</div>
+
+</div>
+
+</div>
+
+
 <div class="online">
-● SYSTEM ONLINE
+
+<div class="onlineDot"></div>
+
+SYSTEM ONLINE
+
 </div>
 
 </header>
 
 
+
 <div class="main">
 
-<div id="game">
 
-<div id="message">
-⚠ OBJECT DETECTED NEAR EDGE
+<!-- =========================
+     GAME
+========================= -->
+
+<div class="game" id="game">
+
+
+<div class="demoTitle">
+
+<h1>Edge Guardian Simulation</h1>
+
+<p>INTERACTIVE ROBOTIC CAT PROTOTYPE</p>
+
 </div>
 
-<div class="table" id="table">
+
+<div
+class="warning"
+id="warning">
+
+⚠ OBJECT ENTERING DANGER ZONE
+
+</div>
+
+
+<div
+class="table"
+id="table">
+
 
 <div class="edge">
-<div class="edgeText">
+
+<div class="edgeLabel">
 DANGER ZONE
 </div>
+
 </div>
+
 
 
 <!-- CAT -->
 
 <div id="cat">
 
-<div class="ear leftEar"></div>
-<div class="ear rightEar"></div>
 
-<div class="head">
+<div class="catEar left"></div>
+<div class="catEar right"></div>
 
-<div class="eye leftEye"></div>
-<div class="eye rightEye"></div>
 
-<div class="nose"></div>
+<div class="catBody"></div>
 
-<div class="mouth"></div>
+<div class="tail"></div>
 
-<div class="whisker w1"></div>
-<div class="whisker w2"></div>
+
+<div class="catHead">
+
+<div class="catEye left"></div>
+<div class="catEye right"></div>
+
+<div class="catNose"></div>
+
+<div class="catMouth"></div>
+
+
+<div class="whisker l1"></div>
+<div class="whisker l2"></div>
+
+<div class="whisker r1"></div>
+<div class="whisker r2"></div>
 
 </div>
+
 
 <div class="paw"></div>
 
+
 </div>
+
 
 
 <!-- OBJECTS -->
@@ -639,19 +1107,21 @@ DANGER ZONE
 <div
 class="object cup"
 id="cup"
-style="left:25%;top:35%;">
+style="left:22%;top:38%;">
 </div>
+
 
 <div
 class="object ball"
 id="ball"
-style="left:50%;top:25%;">
+style="left:49%;top:25%;">
 </div>
+
 
 <div
 class="object phone"
 id="phone"
-style="left:65%;top:60%;">
+style="left:64%;top:62%;">
 </div>
 
 
@@ -659,91 +1129,147 @@ style="left:65%;top:60%;">
 
 </div>
 
+
+
+<!-- =========================
+     PANEL
+========================= -->
 
 <div class="panel">
 
+
 <div class="card">
 
-<div class="title">
-SYSTEM STATUS
+<div class="cardTitle">
+Guardian Status
 </div>
 
 <div
-id="status"
-class="status">
+class="status"
+id="status">
+
 MONITORING
+
 </div>
 
-<div class="bar">
 <div
-id="fill"
-class="fill">
-</div>
+class="statusSub"
+id="statusSub">
+
+Watching the table...
+
 </div>
 
-<div style="margin-top:8px;font-size:11px;color:#7f8998">
+
+<div class="riskBar">
+
+<div
+class="riskFill"
+id="riskFill">
+</div>
+
+</div>
+
+
+<div class="riskNumber">
+
 EDGE RISK:
-<span id="risk">15%</span>
+<span id="risk">
+12%
+</span>
+
 </div>
 
 </div>
+
 
 
 <div class="card">
 
-<div class="title">
-CONTROLS
+<div class="cardTitle">
+Interaction
+
 </div>
 
-<button onclick="resetGame()">
-RESET TABLE
+<div class="instructions">
+
+<span class="highlight">①</span>
+Drag a cup, ball or phone toward the red zone.
+
+<br><br>
+
+<span class="highlight">②</span>
+Release it near the edge.
+
+<br><br>
+
+<span class="highlight">③</span>
+Poocha automatically detects the danger and swats it away.
+
+<br><br>
+
+<span class="highlight">🐱</span>
+Touch the cat to discover its defensive personality.
+
+</div>
+
+
+<button
+onclick="resetGame()">
+
+RESET SIMULATION
+
 </button>
 
-<p style="font-size:11px;color:#8d97a6;line-height:1.6">
-
-🥤 Drag an object into the red zone.<br><br>
-
-🐱 Click the cat to make it hiss.
-
-</p>
-
 </div>
+
 
 
 <div class="card">
 
-<div class="title">
-ACTIVITY LOG
+<div class="cardTitle">
+System Activity
 </div>
 
-<div id="log" class="log">
+<div
+class="log"
+id="log">
 
 <div>
-SYSTEM BOOT
-</div>
-
-<div>
-SENSORS ONLINE
+SYSTEM INITIALIZED
 </div>
 
 <div>
-EDGE MONITORING ACTIVE
+PROXIMITY SENSOR ONLINE
+</div>
+
+<div>
+OBJECT TRACKING ACTIVE
+</div>
+
+<div>
+POOCHA.EXE READY
 </div>
 
 </div>
 
 </div>
 
-</div>
 
 </div>
+
+
+</div>
+
 
 
 <script>
 
-/* ==============================
+/* =====================================
    POOCHA.EXE
-   ============================== */
+   INTERACTIVE SOFTWARE PROTOTYPE
+===================================== */
+
 
 const table =
 document.getElementById("table");
@@ -757,18 +1283,19 @@ document.querySelectorAll(".object");
 let dragging = null;
 
 let offsetX = 0;
+
 let offsetY = 0;
 
 let busy = false;
 
 
-/* ==============================
-   LOG
-   ============================== */
+/* =====================================
+   LOGGING
+===================================== */
 
-function addLog(text,type=""){
+function log(message,type=""){
 
-    const log =
+    const box =
     document.getElementById("log");
 
     const item =
@@ -776,699 +1303,322 @@ function addLog(text,type=""){
 
     item.className = type;
 
+    const time =
+    new Date().toLocaleTimeString();
+
     item.innerText =
-    new Date().toLocaleTimeString()+
-    " — "+
-    text;
+    time+" — "+message;
 
-    log.appendChild(item);
+    box.appendChild(item);
 
-    while(log.children.length > 7){
-        log.removeChild(log.firstChild);
+    while(box.children.length > 7){
+
+        box.removeChild(
+            box.firstChild
+        );
+
     }
 
-    log.scrollTop =
-    log.scrollHeight;
+    box.scrollTop =
+    box.scrollHeight;
 }
 
 
-/* ==============================
+/* =====================================
    DRAGGING
-   ============================== */
+===================================== */
 
-objects.forEach(obj=>{
-
-    obj.addEventListener(
-    "pointerdown",
-    function(e){
-
-        if(busy)return;
-
-        dragging = obj;
-
-        const rect =
-        obj.getBoundingClientRect();
-
-        offsetX =
-        e.clientX - rect.left;
-
-        offsetY =
-        e.clientY - rect.top;
-
-        obj.setPointerCapture(
-        e.pointerId
-        );
-
-    });
+objects.forEach(object=>{
 
 
-    obj.addEventListener(
-    "pointermove",
-    function(e){
+    object.addEventListener(
+        "pointerdown",
+        function(event){
 
-        if(dragging !== obj)return;
+            if(busy)return;
 
-        const rect =
-        table.getBoundingClientRect();
+            dragging = object;
 
-        let x =
-        e.clientX -
-        rect.left -
-        offsetX;
+            const rect =
+            object.getBoundingClientRect();
 
-        let y =
-        e.clientY -
-        rect.top -
-        offsetY;
+            offsetX =
+            event.clientX - rect.left;
 
+            offsetY =
+            event.clientY - rect.top;
 
-        x =
-        Math.max(
-        5,
-        Math.min(
-        x,
-        rect.width -
-        obj.offsetWidth -
-        5
-        ));
-
-
-        y =
-        Math.max(
-        5,
-        Math.min(
-        y,
-        rect.height -
-        obj.offsetHeight -
-        5
-        ));
-
-
-        obj.style.left =
-        x+"px";
-
-        obj.style.top =
-        y+"px";
-
-
-        /* EDGE DETECTION */
-
-        const percentage =
-        (x+obj.offsetWidth) /
-        rect.width;
-
-
-        if(percentage > 0.78){
-
-            showDanger();
-
-        }else{
-
-            hideDanger();
-
-        }
-
-    });
-
-
-    obj.addEventListener(
-    "pointerup",
-    function(){
-
-        if(dragging !== obj)return;
-
-        dragging = null;
-
-
-        const rect =
-        table.getBoundingClientRect();
-
-        const x =
-        parseFloat(obj.style.left);
-
-
-        const percentage =
-        (x+obj.offsetWidth) /
-        rect.width;
-
-
-        if(percentage > 0.78){
-
-            setTimeout(
-            ()=>{
-                attack(obj);
-            },
-            150
+            object.setPointerCapture(
+                event.pointerId
             );
 
         }
+    );
 
-    });
+
+    object.addEventListener(
+        "pointermove",
+        function(event){
+
+            if(dragging !== object)return;
+
+
+            const rect =
+            table.getBoundingClientRect();
+
+
+            let x =
+            event.clientX -
+            rect.left -
+            offsetX;
+
+
+            let y =
+            event.clientY -
+            rect.top -
+            offsetY;
+
+
+            x =
+            Math.max(
+                5,
+                Math.min(
+                    x,
+                    rect.width -
+                    object.offsetWidth -
+                    5
+                )
+            );
+
+
+            y =
+            Math.max(
+                5,
+                Math.min(
+                    y,
+                    rect.height -
+                    object.offsetHeight -
+                    5
+                )
+            );
+
+
+            object.style.left =
+            x+"px";
+
+            object.style.top =
+            y+"px";
+
+
+            checkEdge(
+                object
+            );
+
+        }
+    );
+
+
+    object.addEventListener(
+        "pointerup",
+        function(){
+
+            if(dragging !== object)return;
+
+            dragging = null;
+
+
+            const rect =
+            table.getBoundingClientRect();
+
+
+            const x =
+            parseFloat(
+                object.style.left
+            );
+
+
+            const danger =
+            (x + object.offsetWidth)
+            /
+            rect.width;
+
+
+            if(danger >= .79){
+
+                setTimeout(
+                    ()=>{
+                        attack(object);
+                    },
+                    100
+                );
+
+            }
+
+        }
+    );
 
 });
 
 
-/* ==============================
-   EDGE WARNING
-   ============================== */
+/* =====================================
+   EDGE DETECTION
+===================================== */
 
-function showDanger(){
+function checkEdge(object){
 
-    document
-    .getElementById("message")
-    .classList.add("show");
-
-    document
-    .getElementById("status")
-    .innerText =
-    "OBJECT AT RISK";
-
-    document
-    .getElementById("status")
-    .className =
-    "status danger";
-
-    document
-    .getElementById("fill")
-    .style.width =
-    "92%";
-
-    document
-    .getElementById("fill")
-    .style.background =
-    "#ff5963";
-
-    document
-    .getElementById("risk")
-    .innerText =
-    "92%";
-
-}
-
-
-function hideDanger(){
-
-    if(busy)return;
-
-    document
-    .getElementById("message")
-    .classList.remove("show");
-
-    document
-    .getElementById("status")
-    .innerText =
-    "MONITORING";
-
-    document
-    .getElementById("status")
-    .className =
-    "status";
-
-    document
-    .getElementById("fill")
-    .style.width =
-    "15%";
-
-    document
-    .getElementById("fill")
-    .style.background =
-    "#69e6ad";
-
-    document
-    .getElementById("risk")
-    .innerText =
-    "15%";
-
-}
-
-
-/* ==============================
-   CAT ATTACK
-   ============================== */
-
-function attack(obj){
-
-    if(busy)return;
-
-    busy = true;
-
-    addLog(
-    "EDGE THREAT CONFIRMED",
-    "alert"
-    );
-
-
-    document
-    .getElementById("status")
-    .innerText =
-    "CAT DEPLOYED";
-
-    document
-    .getElementById("status")
-    .className =
-    "status danger";
-
-
-    /*
-       GET OBJECT POSITION
-    */
+    const rect =
+    table.getBoundingClientRect();
 
     const x =
-    parseFloat(obj.style.left);
-
-    const y =
-    parseFloat(obj.style.top);
-
-
-    /*
-       MOVE CAT NEXT TO OBJECT
-    */
-
-    cat.style.left =
-    Math.max(
-    10,
-    x - 115
-    )+"px";
-
-    cat.style.top =
-    Math.max(
-    10,
-    y - 20
-    )+"px";
-
-
-    addLog(
-    "POOCHA MOVING TO TARGET",
-    "alert"
+    parseFloat(
+        object.style.left
     );
 
 
-    /*
-       WAIT FOR CAT TO ARRIVE
-    */
+    const danger =
+    (x + object.offsetWidth)
+    /
+    rect.width;
 
-    setTimeout(
-    ()=>{
 
-        addLog(
-        "TARGET ACQUIRED",
-        "alert"
-        );
+    if(danger >= .79){
 
+        document
+        .getElementById("warning")
+        .classList.add("show");
 
-        cat.classList.add(
-        "swatting"
-        );
 
+        document
+        .getElementById("status")
+        .innerText =
+        "THREAT DETECTED";
 
-        /*
-           HISS
-        */
 
-        loudHiss();
+        document
+        .getElementById("status")
+        .className =
+        "status danger";
 
 
-        addLog(
-        "PAW MECHANISM ACTIVATED",
-        "alert"
-        );
+        document
+        .getElementById("statusSub")
+        .innerText =
+        "Object too close to edge";
 
 
-        /*
-           SWAT OBJECT
-        */
+        document
+        .getElementById("riskFill")
+        .style.width =
+        "94%";
 
-        setTimeout(
-        ()=>{
 
-            obj.style.transform =
-            "translate(150px,80px) rotate(100deg)";
+        document
+        .getElementById("riskFill")
+        .style.background =
+        "#ff6570";
 
-            obj.style.opacity =
-            "0";
 
-
-            addLog(
-            "OBJECT SWATTED OFF TABLE",
-            "success"
-            );
-
-
-            document
-            .getElementById("status")
-            .innerText =
-            "THREAT REMOVED";
-
-            document
-            .getElementById("status")
-            .className =
-            "status";
-
-
-            document
-            .getElementById("fill")
-            .style.width =
-            "5%";
-
-            document
-            .getElementById("fill")
-            .style.background =
-            "#69e6ad";
-
-            document
-            .getElementById("risk")
-            .innerText =
-            "5%";
-
-
-        },
-        450
-        );
-
-
-        /*
-           RETURN CAT
-        */
-
-        setTimeout(
-        ()=>{
-
-            cat.classList.remove(
-            "swatting"
-            );
-
-
-            cat.style.left =
-            "42%";
-
-            cat.style.top =
-            "40%";
-
-
-            setTimeout(
-            ()=>{
-
-                busy = false;
-
-                resetStatus();
-
-            },
-            1000
-            );
-
-        },
-        1500
-        );
-
-
-    },
-    1000
-    );
-
-}
-
-
-/* ==============================
-   HISSING SOUND
-   ============================== */
-
-function loudHiss(){
-
-    try{
-
-        const AudioContext =
-        window.AudioContext ||
-        window.webkitAudioContext;
-
-        const ctx =
-        new AudioContext();
-
-
-        /*
-           WHITE NOISE
-        */
-
-        const buffer =
-        ctx.createBuffer(
-        1,
-        ctx.sampleRate * 0.8,
-        ctx.sampleRate
-        );
-
-
-        const data =
-        buffer.getChannelData(0);
-
-
-        for(
-        let i=0;
-        i<data.length;
-        i++
-        ){
-
-            data[i] =
-            (Math.random()*2-1)
-            *
-            Math.pow(
-            1-i/data.length,
-            0.5
-            );
-
-        }
-
-
-        const source =
-        ctx.createBufferSource();
-
-        source.buffer =
-        buffer;
-
-
-        /*
-           FILTER = HISSING
-        */
-
-        const filter =
-        ctx.createBiquadFilter();
-
-        filter.type =
-        "highpass";
-
-        filter.frequency.value =
-        1800;
-
-
-        /*
-           VOLUME
-        */
-
-        const gain =
-        ctx.createGain();
-
-        gain.gain.value =
-        1.8;
-
-
-        source
-        .connect(filter)
-        .connect(gain)
-        .connect(ctx.destination);
-
-
-        source.start();
-
-
-        /*
-           EXTRA LOW GROWL
-        */
-
-        const osc =
-        ctx.createOscillator();
-
-        const oscGain =
-        ctx.createGain();
-
-        osc.type =
-        "sawtooth";
-
-        osc.frequency.value =
-        90;
-
-        oscGain.gain.value =
-        0.15;
-
-
-        osc
-        .connect(oscGain)
-        .connect(ctx.destination);
-
-        osc.start();
-
-        osc.stop(
-        ctx.currentTime + 0.8
-        );
-
-    }
-    catch(e){
-
-        console.log(
-        "Audio unavailable"
-        );
+        document
+        .getElementById("risk")
+        .innerText =
+        "94%";
 
     }
 
 }
 
 
-/* ==============================
-   CAT CLICK
-   ============================== */
+/* =====================================
+   CAT ATTACK
+===================================== */
 
-cat.addEventListener(
-"click",
-function(){
+function attack(object){
 
     if(busy)return;
 
     busy = true;
 
-    cat.classList.add(
-    "angry"
+
+    log(
+        "THREAT CONFIRMED",
+        "alert"
     );
 
 
     document
     .getElementById("status")
     .innerText =
-    "HISS MODE";
+    "DEPLOYING POOCHA";
+
 
     document
-    .getElementById("status")
-    .className =
-    "status danger";
+    .getElementById("statusSub")
+    .innerText =
+    "Autonomous intervention";
 
 
-    addLog(
-    "HUMAN CONTACT DETECTED",
-    "alert"
+    const objectX =
+    parseFloat(
+        object.style.left
     );
 
 
-    loudHiss();
-
-
-    setTimeout(
-    ()=>{
-
-        cat.classList.remove(
-        "angry"
-        );
-
-        busy = false;
-
-        resetStatus();
-
-    },
-    1200
+    const objectY =
+    parseFloat(
+        object.style.top
     );
 
-});
 
-
-/* ==============================
-   RESET
-   ============================== */
-
-function resetGame(){
-
-    objects[0].style.left =
-    "25%";
-
-    objects[0].style.top =
-    "35%";
-
-
-    objects[1].style.left =
-    "50%";
-
-    objects[1].style.top =
-    "25%";
-
-
-    objects[2].style.left =
-    "65%";
-
-    objects[2].style.top =
-    "60%";
-
-
-    objects.forEach(
-    o=>{
-        o.style.opacity="1";
-        o.style.transform="";
-    });
-
+    /*
+       MOVE CAT TO OBJECT
+    */
 
     cat.style.left =
-    "42%";
+    Math.max(
+        5,
+        objectX - 105
+    )+"px";
+
 
     cat.style.top =
-    "40%";
+    Math.max(
+        5,
+        objectY - 15
+    )+"px";
 
 
-    cat.classList.remove(
-    "angry",
-    "swatting"
+    log(
+        "CAT MOVING TO TARGET",
+        "alert"
     );
 
 
-    busy=false;
+    /*
+       WAIT FOR CAT
+    */
 
-    resetStatus();
-
-    addLog(
-    "TABLE RESET",
-    "success"
-    );
-
-}
+    setTimeout(
+        ()=>{
 
 
-function resetStatus(){
-
-    document
-    .getElementById("message")
-    .classList.remove("show");
-
-    document
-    .getElementById("status")
-    .innerText =
-    "MONITORING";
-
-    document
-    .getElementById("status")
-    .className =
-    "status";
-
-    document
-    .getElementById("fill")
-    .style.width =
-    "15%";
-
-    document
-    .getElementById("fill")
-    .style.background =
-    "#69e6ad";
-
-    document
-    .getElementById("risk")
-    .innerText =
-    "15%";
-
-}
+            log(
+                "TARGET ACQUIRED",
+                "success"
+            );
 
 
-</script>
+            cat.classList.add(
+                "swatting"
+            );
 
-</body>
-</html>
+
+            /*
+               CAT SOUND
+            */
+
+            catAttackSound();
+
+
+            log(
+                "PAW MECHANISM ACTIVATED",
+                "alert"
