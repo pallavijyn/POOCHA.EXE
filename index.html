@@ -92,19 +92,16 @@ button:hover {
 }
 
 /* =========================
-   POOCHA CONTAINER
+   POOCHA
 ========================= */
 
 #poocha {
     position: fixed;
-
-    /* IMPORTANT:
-       Cat is visible even if JS doesn't run */
     left: 70vw;
     top: 60vh;
 
-    width: 150px;
-    height: 180px;
+    width: 170px;
+    height: 190px;
 
     z-index: 99999;
     pointer-events: auto;
@@ -116,255 +113,425 @@ button:hover {
 }
 
 /* =========================
-   CSS CAT
+   FAT CUTE CSS CAT
 ========================= */
 
 .cat-art {
     position: relative;
-    width: 150px;
-    height: 170px;
+    width: 170px;
+    height: 185px;
+
+    filter: drop-shadow(0 5px 4px rgba(0,0,0,.15));
 }
 
 /* Shadow */
 
 .cat-shadow {
     position: absolute;
-    bottom: 0;
-    left: 35px;
-    width: 80px;
-    height: 16px;
-    background: rgba(0,0,0,.18);
+    bottom: 1px;
+    left: 38px;
+
+    width: 98px;
+    height: 17px;
+
+    background: rgba(0,0,0,.15);
     border-radius: 50%;
-    filter: blur(3px);
+
+    filter: blur(4px);
 }
 
-/* Body */
+/* FAT BODY */
 
 .cat-body {
     position: absolute;
-    left: 40px;
-    top: 70px;
 
-    width: 70px;
-    height: 82px;
+    left: 35px;
+    top: 78px;
 
-    background: #f4a261;
-    border: 4px solid #222;
-    border-radius: 45% 45% 35% 35%;
+    width: 92px;
+    height: 91px;
+
+    background: #f6a96b;
+
+    border: 4px solid #292323;
+
+    border-radius: 48% 48% 42% 42%;
+
+    z-index: 2;
 }
 
-/* Belly */
+/* BIG ROUND BELLY */
 
 .belly {
     position: absolute;
-    left: 12px;
-    top: 20px;
 
-    width: 38px;
-    height: 48px;
+    left: 15px;
+    top: 19px;
 
-    background: #ffd6a5;
+    width: 54px;
+    height: 59px;
+
+    background: #ffe0b8;
+
     border-radius: 50%;
 }
 
-/* Head */
+/* HEAD */
 
 .cat-head {
     position: absolute;
-    left: 27px;
-    top: 25px;
 
-    width: 96px;
-    height: 75px;
+    left: 22px;
+    top: 27px;
 
-    background: #f4a261;
-    border: 4px solid #222;
+    width: 112px;
+    height: 88px;
 
-    border-radius: 48% 48% 45% 45%;
+    background: #f6a96b;
+
+    border: 4px solid #292323;
+
+    border-radius: 50% 50% 48% 48%;
 
     z-index: 5;
 }
 
-/* Ears */
+/* EARS */
 
 .ear-left,
 .ear-right {
     position: absolute;
-    top: -27px;
 
-    width: 38px;
-    height: 38px;
+    top: -26px;
 
-    background: #f4a261;
-    border: 4px solid #222;
+    width: 45px;
+    height: 45px;
+
+    background: #f6a96b;
+
+    border: 4px solid #292323;
 
     transform: rotate(45deg);
+
+    border-radius: 13px 5px 10px 5px;
+
     z-index: -1;
 }
 
 .ear-left {
-    left: 4px;
+    left: 5px;
 }
 
 .ear-right {
-    right: 4px;
+    right: 5px;
 }
+
+/* INNER EARS */
 
 .ear-left::after,
 .ear-right::after {
     content: "";
+
     position: absolute;
 
-    width: 19px;
-    height: 19px;
+    width: 24px;
+    height: 24px;
 
-    background: #ff9f9f;
-    border-radius: 50%;
+    background: #f49aaa;
+
+    border-radius: 9px 4px 9px 4px;
+
+    top: 8px;
+    left: 8px;
 }
 
-/* Eyes */
+/* EYES */
 
 .eye {
     position: absolute;
-    top: 28px;
 
-    width: 13px;
-    height: 18px;
+    top: 32px;
 
-    background: #222;
+    width: 16px;
+    height: 20px;
+
+    background: #292323;
+
     border-radius: 50%;
 }
 
-.eye::after {
+.eye-left {
+    left: 27px;
+}
+
+.eye-right {
+    right: 27px;
+}
+
+/* Eye shine */
+
+.eye::before {
     content: "";
+
     position: absolute;
 
-    width: 4px;
-    height: 5px;
+    width: 6px;
+    height: 7px;
 
     background: white;
+
     border-radius: 50%;
 
     top: 3px;
     left: 3px;
 }
 
-.eye-left {
-    left: 25px;
+.eye::after {
+    content: "";
+
+    position: absolute;
+
+    width: 3px;
+    height: 3px;
+
+    background: white;
+
+    border-radius: 50%;
+
+    bottom: 4px;
+    right: 3px;
 }
 
-.eye-right {
-    right: 25px;
-}
-
-/* Nose */
+/* NOSE */
 
 .nose {
     position: absolute;
 
-    left: 42px;
-    top: 47px;
+    left: 48px;
+    top: 52px;
 
-    width: 11px;
-    height: 8px;
+    width: 13px;
+    height: 10px;
 
-    background: #e76f8a;
+    background: #ee8296;
 
-    border-radius: 50%;
+    border-radius: 55% 55% 60% 60%;
+
+    z-index: 2;
 }
 
-/* Mouth */
+/* MOUTH */
 
 .mouth {
     position: absolute;
 
-    left: 39px;
-    top: 53px;
+    left: 44px;
+    top: 59px;
 
-    width: 18px;
-    height: 9px;
+    width: 23px;
+    height: 13px;
 
-    border-bottom: 3px solid #222;
+    border-bottom: 3px solid #292323;
+
     border-radius: 50%;
+
+    z-index: 2;
+} 
+/* CHUBBY CHEEKS */
+
+.cat-head::before,
+.cat-head::after {
+    content: "";
+
+    position: absolute;
+
+    width: 21px;
+    height: 11px;
+
+    background: rgba(255,140,150,.35);
+
+    border-radius: 50%;
+
+    top: 56px;
 }
 
-/* Paws */
+.cat-head::before {
+    left: 9px;
+}
+
+.cat-head::after {
+    right: 9px;
+}
+
+/* PAWS */
 
 .paw {
     position: absolute;
 
-    bottom: -10px;
+    bottom: -13px;
 
-    width: 27px;
-    height: 35px;
+    width: 32px;
+    height: 40px;
 
-    background: #f4a261;
-    border: 4px solid #222;
+    background: #f6a96b;
+
+    border: 4px solid #292323;
 
     border-radius: 50%;
+
+    z-index: 4;
 }
 
 .paw-left {
-    left: 5px;
+    left: 8px;
 }
 
 .paw-right {
-    right: 5px;
+    right: 8px;
 }
 
-/* Tail */
+/* PAW BEANS */
+
+.paw::after {
+    content: "•••";
+
+    position: absolute;
+
+    left: 5px;
+    top: 8px;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+
+    color: #d77d5a;
+
+    transform: rotate(90deg);
+}
+
+/* FAT CURVED TAIL */
 
 .tail {
     position: absolute;
 
-    left: 96px;
-    top: 88px;
+    left: 105px;
+    top: 98px;
 
-    width: 60px;
-    height: 55px;
+    width: 67px;
+    height: 60px;
 
-    border: 10px solid #f4a261;
+    border: 12px solid #f6a96b;
+
     border-left: none;
 
-    border-radius: 0 50% 50% 0;
+    border-radius: 0 55% 55% 0;
 
-    transform: rotate(-20deg);
+    transform: rotate(-18deg);
 
-    z-index: -1;
+    z-index: 1;
 }
 
-/* Walking */
+/* Tail tip */
+
+.tail::after {
+    content: "";
+
+    position: absolute;
+
+    right: -7px;
+    top: -7px;
+
+    width: 16px;
+    height: 20px;
+
+    background: #f6a96b;
+
+    border-radius: 50%;
+}
+
+/* WALKING */
 
 .walking {
-    animation: bounce .5s infinite alternate;
+    animation: bounce .55s infinite alternate ease-in-out;
 }
 
 @keyframes bounce {
     from {
-        transform: translateY(0);
+        transform: translateY(0) rotate(-1deg);
     }
 
     to {
-        transform: translateY(-7px);
+        transform: translateY(-6px) rotate(1deg);
     }
 }
 
-/* Angry */
+/* =========================
+   ANGRY CAT
+========================= */
 
 .angry .cat-head {
-    background: #e76f51;
+    background: #f28b68;
 }
 
+.angry .cat-body {
+    background: #f28b68;
+}
+
+/* Angry eyebrows */
+
+.angry .cat-head::before,
+.angry .cat-head::after {
+    background: transparent;
+
+    border-top: 4px solid #292323;
+
+    width: 21px;
+    height: 11px;
+
+    top: 22px;
+}
+
+.angry .cat-head::before {
+    transform: rotate(18deg);
+}
+
+.angry .cat-head::after {
+    transform: rotate(-18deg);
+}
+
+/* Angry eyes */
+
 .angry .eye {
-    height: 7px;
-    top: 34px;
+    height: 8px;
+    top: 39px;
+
     border-radius: 50%;
 }
 
+/* Angry mouth */
+
 .angry .mouth {
     border-bottom: none;
-    border-top: 4px solid #222;
-    top: 56px;
+
+    border-top: 4px solid #292323;
+
+    top: 63px;
+}
+
+/* Angry shake */
+
+.angry {
+    animation: angryShake .12s infinite alternate;
+}
+
+@keyframes angryShake {
+    from {
+        transform: rotate(-3deg);
+    }
+
+    to {
+        transform: rotate(3deg);
+    }
 }
 
 /* =========================
@@ -390,6 +557,7 @@ button:hover {
     white-space: nowrap;
 
     opacity: 0;
+
     transform: translateY(5px);
 
     transition: .2s;
@@ -399,15 +567,16 @@ button:hover {
 
 #dialog.show {
     opacity: 1;
+
     transform: translateY(0);
 }
 
-/* X */
+/* X BUTTON */
 
 #closeBtn {
     position: absolute;
 
-    right: -10px;
+    right: -8px;
     top: -15px;
 
     width: 27px;
@@ -457,7 +626,6 @@ button:hover {
     margin-top: 4px;
     opacity: .8;
 }
-
 /* =========================
    WARNING
 ========================= */
@@ -507,7 +675,7 @@ button:hover {
     }
 }
 
-/* Screen shake */
+/* SCREEN SHAKE */
 
 .shake {
     animation: screenShake .35s;
@@ -521,13 +689,7 @@ button:hover {
     100% { transform: translate(0); }
 }
 
-/* Leaving */
-
-.leaving {
-    transform: translateX(300px) rotate(20deg);
-}
-
-/* Flash */
+/* FLASH */
 
 .sabotage-flash {
     position: fixed;
@@ -544,11 +706,16 @@ button:hover {
 }
 
 @keyframes flash {
-    from { opacity: 1; }
-    to { opacity: 0; }
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
 }
 
-/* Footsteps */
+/* FOOTSTEPS */
 
 .step {
     position: fixed;
@@ -578,6 +745,7 @@ button:hover {
         transform: scale(.5);
     }
 }
+
 </style>
 </head>
 
@@ -604,17 +772,26 @@ button:hover {
     </div>
 
     <div class="search-area">
+
         <input
             id="searchBox"
             type="text"
             placeholder="Search something..."
             autocomplete="off"
         >
+
     </div>
 
     <div class="buttons">
-        <button id="searchBtn">Google Search</button>
-        <button id="luckyBtn">I'm Feeling Lucky</button>
+
+        <button id="searchBtn">
+            Google Search
+        </button>
+
+        <button id="luckyBtn">
+            I'm Feeling Lucky
+        </button>
+
     </div>
 
 </div>
@@ -668,8 +845,14 @@ button:hover {
 ========================= -->
 
 <div id="moodPanel">
-    😼 Mood: <span id="mood">Mischievous</span>
-    <div id="counter">Sabotages: 0</div>
+
+    😼 Mood:
+    <span id="mood">Mischievous</span>
+
+    <div id="counter">
+        Sabotages: 0
+    </div>
+
 </div>
 
 <div id="warning"></div>
@@ -683,18 +866,24 @@ button:hover {
 
 const poocha = document.getElementById("poocha");
 const catArt = document.querySelector(".cat-art");
+
 const searchBox = document.getElementById("searchBox");
+
 const searchBtn = document.getElementById("searchBtn");
 const luckyBtn = document.getElementById("luckyBtn");
 
 const dialog = document.getElementById("dialog");
+
 const mood = document.getElementById("mood");
 const counter = document.getElementById("counter");
+
 const warning = document.getElementById("warning");
+
 const closeBtn = document.getElementById("closeBtn");
 
 let sabotageCount = 0;
 let typingTimer;
+
 let closed = false;
 let sabotaging = false;
 
@@ -713,10 +902,12 @@ function unlockAudio() {
     try {
 
         if (!audioCtx) {
+
             audioCtx = new (
                 window.AudioContext ||
                 window.webkitAudioContext
             )();
+
         }
 
         if (audioCtx.state === "suspended") {
@@ -744,9 +935,14 @@ function catSound(type) {
         if (type === "purr") {
 
             osc.type = "sine";
+
             osc.frequency.value = 80;
 
-            gain.gain.setValueAtTime(.05, audioCtx.currentTime);
+            gain.gain.setValueAtTime(
+                .05,
+                audioCtx.currentTime
+            );
+
             gain.gain.exponentialRampToValueAtTime(
                 .001,
                 audioCtx.currentTime + .35
@@ -768,7 +964,10 @@ function catSound(type) {
                 audioCtx.currentTime + .18
             );
 
-            gain.gain.setValueAtTime(.12, audioCtx.currentTime);
+            gain.gain.setValueAtTime(
+                .12,
+                audioCtx.currentTime
+            );
 
             gain.gain.exponentialRampToValueAtTime(
                 .001,
@@ -783,7 +982,10 @@ function catSound(type) {
 
             osc.frequency.value = 90;
 
-            gain.gain.setValueAtTime(.12, audioCtx.currentTime);
+            gain.gain.setValueAtTime(
+                .12,
+                audioCtx.currentTime
+            );
 
             gain.gain.exponentialRampToValueAtTime(
                 .001,
@@ -793,13 +995,14 @@ function catSound(type) {
         }
 
         osc.start();
-        osc.stop(audioCtx.currentTime + .45);
+
+        osc.stop(
+            audioCtx.currentTime + .45
+        );
 
     } catch(e) {}
 
 }
-
-
 /* =========================
    DIALOGUE
 ========================= */
@@ -813,7 +1016,9 @@ function say(text, duration = 1800) {
     clearTimeout(dialog.hideTimer);
 
     dialog.hideTimer = setTimeout(() => {
+
         dialog.classList.remove("show");
+
     }, duration);
 
 }
@@ -842,14 +1047,23 @@ function showWarning(text) {
 
 function moveCat(x, y) {
 
-    const maxX = window.innerWidth - 150;
-    const maxY = window.innerHeight - 180;
+    const maxX =
+        window.innerWidth - 170;
 
-    catX = Math.max(10, Math.min(x, maxX));
-    catY = Math.max(60, Math.min(y, maxY));
+    const maxY =
+        window.innerHeight - 190;
 
-    poocha.style.left = catX + "px";
-    poocha.style.top = catY + "px";
+    catX =
+        Math.max(10, Math.min(x, maxX));
+
+    catY =
+        Math.max(60, Math.min(y, maxY));
+
+    poocha.style.left =
+        catX + "px";
+
+    poocha.style.top =
+        catY + "px";
 
 }
 
@@ -860,7 +1074,8 @@ function moveCat(x, y) {
 
 function makeStep() {
 
-    const step = document.createElement("div");
+    const step =
+        document.createElement("div");
 
     step.className = "step";
 
@@ -868,12 +1083,14 @@ function makeStep() {
         (catX + 55 + Math.random() * 20) + "px";
 
     step.style.top =
-        (catY + 145) + "px";
+        (catY + 155) + "px";
 
     document.body.appendChild(step);
 
     setTimeout(() => {
+
         step.remove();
+
     }, 1000);
 
 }
@@ -888,10 +1105,12 @@ function wander() {
     if (closed || sabotaging) return;
 
     const x =
-        Math.random() * (window.innerWidth - 180) + 10;
+        Math.random() *
+        (window.innerWidth - 190) + 10;
 
     const y =
-        Math.random() * (window.innerHeight - 230) + 80;
+        Math.random() *
+        (window.innerHeight - 250) + 80;
 
     moveCat(x, y);
 
@@ -906,29 +1125,45 @@ setInterval(wander, 5000);
    CURSOR CHASE
 ========================= */
 
-let mouseX = window.innerWidth / 2;
-let mouseY = window.innerHeight / 2;
+let mouseX =
+    window.innerWidth / 2;
 
-document.addEventListener("mousemove", function(e) {
+let mouseY =
+    window.innerHeight / 2;
 
-    mouseX = e.clientX;
-    mouseY = e.clientY;
+document.addEventListener(
+    "mousemove",
+    function(e) {
 
-});
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+    }
+);
 
 setInterval(() => {
 
     if (closed || sabotaging) return;
 
-    const dx = mouseX - (catX + 75);
-    const dy = mouseY - (catY + 90);
+    const dx =
+        mouseX - (catX + 85);
 
-    const distance = Math.sqrt(dx * dx + dy * dy);
+    const dy =
+        mouseY - (catY + 95);
 
-    if (distance < 230 && distance > 90) {
+    const distance =
+        Math.sqrt(dx * dx + dy * dy);
 
-        const newX = catX + dx * .12;
-        const newY = catY + dy * .12;
+    if (
+        distance < 230 &&
+        distance > 90
+    ) {
+
+        const newX =
+            catX + dx * .12;
+
+        const newY =
+            catY + dy * .12;
 
         moveCat(newX, newY);
 
@@ -943,55 +1178,73 @@ setInterval(() => {
    CAT CLICK
 ========================= */
 
-poocha.addEventListener("click", function(e) {
+poocha.addEventListener(
+    "click",
+    function(e) {
 
-    if (e.target === closeBtn) return;
+        if (e.target === closeBtn) return;
 
-    if (closed) return;
+        if (closed) return;
 
-    catArt.classList.add("angry");
+        catArt.classList.add("angry");
 
-    mood.textContent = "ANGRY 😾";
+        mood.textContent =
+            "ANGRY 😾";
 
-    say("DON'T TOUCH ME.");
+        say("DON'T TOUCH ME.");
 
-    catSound("growl");
+        catSound("growl");
 
-    moveCat(
-        Math.random() * (window.innerWidth - 180),
-        Math.random() * (window.innerHeight - 250) + 80
-    );
+        moveCat(
+            Math.random() *
+                (window.innerWidth - 190),
 
-    setTimeout(() => {
+            Math.random() *
+                (window.innerHeight - 280) + 80
+        );
 
-        catArt.classList.remove("angry");
+        setTimeout(() => {
 
-        mood.textContent = "Mischievous";
+            catArt.classList.remove("angry");
 
-    }, 1200);
+            mood.textContent =
+                "Mischievous";
 
-});
+        }, 1200);
+
+    }
+);
 
 
 /* =========================
-   TYPING DETECTION
+   TYPING
 ========================= */
 
-searchBox.addEventListener("input", function() {
+searchBox.addEventListener(
+    "input",
+    function() {
 
-    clearTimeout(typingTimer);
+        clearTimeout(typingTimer);
 
-    if (searchBox.value.trim() === "") return;
+        if (
+            searchBox.value.trim() === ""
+        ) return;
 
-    say("Hmm... what are you searching? 👀");
+        say(
+            "Hmm... what are you searching? 👀"
+        );
 
-    typingTimer = setTimeout(() => {
+        typingTimer = setTimeout(
+            () => {
 
-        sabotage();
+                sabotage();
 
-    }, 3000);
+            },
+            3000
+        );
 
-});
+    }
+);
 
 
 /* =========================
@@ -1009,7 +1262,8 @@ function sabotage() {
     counter.textContent =
         "Sabotages: " + sabotageCount;
 
-    mood.textContent = "CHAOTIC 😈";
+    mood.textContent =
+        "CHAOTIC 😈";
 
     catArt.classList.add("angry");
 
@@ -1017,11 +1271,11 @@ function sabotage() {
 
     say("hehe... 😈");
 
-    showWarning("😈 POOCHA IS SABOTAGING YOU");
+    showWarning(
+        "😈 POOCHA IS SABOTAGING YOU"
+    );
 
     setTimeout(() => {
-
-        /* Run toward search bar */
 
         moveCat(
             window.innerWidth / 2 - 100,
@@ -1035,9 +1289,13 @@ function sabotage() {
 
     setTimeout(() => {
 
-        showWarning("⬅️ GOING BACK... 😈");
+        showWarning(
+            "⬅️ GOING BACK... 😈"
+        );
 
-        say("BYE BYE SEARCH.");
+        say(
+            "BYE BYE SEARCH."
+        );
 
     }, 1500);
 
@@ -1059,39 +1317,56 @@ function goBack() {
 
     searchBox.value = "";
 
-    document.body.classList.add("shake");
+    document.body.classList.add(
+        "shake"
+    );
 
-    showWarning("⬅️ POOCHA PRESSED BACK");
+    showWarning(
+        "⬅️ POOCHA PRESSED BACK"
+    );
 
     catSound("meow");
 
-    say("You're welcome. 😌");
+    say(
+        "You're welcome. 😌"
+    );
 
     const flash =
         document.createElement("div");
 
-    flash.className = "sabotage-flash";
+    flash.className =
+        "sabotage-flash";
 
     document.body.appendChild(flash);
 
     setTimeout(() => {
+
         flash.remove();
+
     }, 400);
 
 
     setTimeout(() => {
 
-        catArt.classList.remove("angry");
+        catArt.classList.remove(
+            "angry"
+        );
 
-        mood.textContent = "Mischievous";
+        mood.textContent =
+            "Mischievous";
 
         sabotaging = false;
 
-        document.body.classList.remove("shake");
+        document.body.classList.remove(
+            "shake"
+        );
 
         moveCat(
-            Math.random() * (window.innerWidth - 180),
-            Math.random() * (window.innerHeight - 250) + 80
+            Math.random() *
+                (window.innerWidth - 190),
+
+            Math.random() *
+                (window.innerHeight - 280) + 80
         );
 
     }, 1800);
@@ -1103,106 +1378,138 @@ function goBack() {
    SEARCH BUTTON
 ========================= */
 
-searchBtn.addEventListener("click", function() {
+searchBtn.addEventListener(
+    "click",
+    function() {
 
-    unlockAudio();
+        unlockAudio();
 
-    if (searchBox.value.trim() !== "") {
+        if (
+            searchBox.value.trim() !== ""
+        ) {
 
-        sabotage();
+            sabotage();
 
-    } else {
+        } else {
 
-        say("Search something first 🙄");
+            say(
+                "Search something first 🙄"
+            );
+
+        }
 
     }
-
-});
+);
 
 
 /* =========================
    LUCKY BUTTON
 ========================= */
 
-luckyBtn.addEventListener("click", function() {
+luckyBtn.addEventListener(
+    "click",
+    function() {
 
-    unlockAudio();
+        unlockAudio();
 
-    say("You're feeling lucky? I'm feeling evil. 😈");
+        say(
+            "You're feeling lucky? I'm feeling evil. 😈"
+        );
 
-    setTimeout(() => {
-        sabotage();
-    }, 600);
+        setTimeout(() => {
 
-});
+            sabotage();
+
+        }, 600);
+
+    }
+);
 
 
 /* =========================
-   CLOSE / X BUTTON
+   CLOSE BUTTON
 ========================= */
 
-closeBtn.addEventListener("click", function(e) {
+closeBtn.addEventListener(
+    "click",
+    function(e) {
 
-    e.stopPropagation();
+        e.stopPropagation();
 
-    if (closed) return;
+        if (closed) return;
 
-    closed = true;
+        closed = true;
 
-    say("Aw...");
+        say("Aw...");
 
-    mood.textContent = "Sad 🥺";
+        mood.textContent =
+            "Sad 🥺";
 
-    catSound("meow");
+        catSound("meow");
 
-    setTimeout(() => {
+        setTimeout(() => {
 
-        poocha.style.opacity = "0";
-        poocha.style.pointerEvents = "none";
+            poocha.style.opacity = "0";
 
-    }, 700);
+            poocha.style.pointerEvents =
+                "none";
 
-});
+        }, 700);
+
+    }
+);
 
 
 /* =========================
    INITIAL CAT
 ========================= */
 
-window.addEventListener("load", function() {
+window.addEventListener(
+    "load",
+    function() {
 
-    closed = false;
+        closed = false;
 
-    poocha.style.opacity = "1";
-    poocha.style.pointerEvents = "auto";
+        poocha.style.opacity = "1";
 
-    moveCat(
-        window.innerWidth * .70,
-        window.innerHeight * .60
-    );
+        poocha.style.pointerEvents =
+            "auto";
 
-    setTimeout(() => {
+        moveCat(
+            window.innerWidth * .70,
+            window.innerHeight * .60
+        );
 
-        say("pspsps... 😼");
+        setTimeout(() => {
 
-        catSound("purr");
+            say(
+                "pspsps... 😼"
+            );
 
-    }, 700);
+            catSound("purr");
 
-});
+        }, 700);
+
+    }
+);
 
 
 /* =========================
    RESIZE
 ========================= */
 
-window.addEventListener("resize", function() {
+window.addEventListener(
+    "resize",
+    function() {
 
-    if (!closed) {
-        moveCat(catX, catY);
+        if (!closed) {
+
+            moveCat(catX, catY);
+
+        }
+
     }
-
-});
+);
 
 </script>
 
