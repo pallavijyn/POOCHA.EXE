@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>Poocha.exe</title>
 
+
 <style>
+
+/* =========================
+   BASIC PAGE
+   ========================= */
 
 * {
     box-sizing: border-box;
@@ -14,11 +23,15 @@
 
 body {
     margin: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
     font-family: Arial, sans-serif;
     background: white;
     color: #202124;
-    overflow: hidden;
+    transition: transform .07s;
 }
+
 
 /* =========================
    GOOGLE PAGE
@@ -32,39 +45,40 @@ body {
 
 .top {
     height: 60px;
-
     display: flex;
     justify-content: flex-end;
     align-items: center;
-
-    padding-right: 25px;
     gap: 22px;
-
+    padding-right: 25px;
     font-size: 14px;
 }
 
+.top span {
+    cursor: pointer;
+}
+
 .apps {
-    font-size: 22px;
+    font-size: 21px;
 }
 
 .main {
     position: absolute;
-
     top: 18%;
     left: 50%;
-
     transform: translateX(-50%);
-
     width: 90%;
-
     text-align: center;
 }
+
+
+/* =========================
+   GOOGLE LOGO
+   ========================= */
 
 .logo {
     font-size: 80px;
     font-weight: bold;
     letter-spacing: -6px;
-
     margin-bottom: 30px;
 }
 
@@ -84,8 +98,9 @@ body {
     color: #34a853;
 }
 
+
 /* =========================
-   SEARCH
+   SEARCH BOX
    ========================= */
 
 .search-container {
@@ -95,16 +110,11 @@ body {
 
 .search-box {
     height: 48px;
-
     border: 1px solid #dfe1e5;
-
     border-radius: 25px;
-
     display: flex;
     align-items: center;
-
     padding: 0 18px;
-
     box-shadow: 0 1px 6px rgba(32,33,36,.15);
 }
 
@@ -116,34 +126,25 @@ body {
 
 #search {
     flex: 1;
-
     border: none;
     outline: none;
-
-    font-size: 17px;
-
     background: transparent;
+    font-size: 17px;
 }
 
 .buttons {
-    margin-top: 28px;
-
     display: flex;
     justify-content: center;
     gap: 12px;
+    margin-top: 28px;
 }
 
 .google-btn {
     border: 1px solid #f8f9fa;
-
     background: #f8f9fa;
-
     padding: 10px 18px;
-
     border-radius: 4px;
-
     cursor: pointer;
-
     font-size: 14px;
 }
 
@@ -153,170 +154,240 @@ body {
 
 
 /* =========================
-   POOCHA
+   POOCHA CONTAINER
    ========================= */
 
 #poocha {
-
     position: fixed;
-
-    left: 50%;
-    top: 70%;
-
-    width: 105px;
-    height: 125px;
-
+    width: 125px;
+    height: 145px;
     z-index: 9999;
-
     cursor: pointer;
-
     user-select: none;
-
     transition:
         left .35s ease,
-        top .35s ease,
-        transform .25s ease;
-
-}
-
-
-/* Cat */
-
-#cat {
-
-    font-size: 76px;
-
-    text-align: center;
-
-    line-height: 1;
-
-    filter: drop-shadow(0 5px 4px rgba(0,0,0,.18));
-
-}
-
-
-/* Little shadow */
-
-.shadow {
-
-    width: 65px;
-    height: 13px;
-
-    background: rgba(0,0,0,.15);
-
-    border-radius: 50%;
-
-    margin: 3px auto;
-
-}
-
-
-/* Dialogue bubble */
-
-#dialog {
-
-    position: absolute;
-
-    bottom: 108px;
-
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    min-width: 130px;
-
-    max-width: 190px;
-
-    padding: 8px 12px;
-
-    background: white;
-
-    border: 2px solid #222;
-
-    border-radius: 15px;
-
-    font-size: 12px;
-
-    text-align: center;
-
-    box-shadow: 0 5px 15px rgba(0,0,0,.15);
-
-    opacity: 0;
-
-    pointer-events: none;
-
-    transition: opacity .25s ease;
-
-}
-
-#dialog.show {
-    opacity: 1;
-}
-
-
-/* Dialogue bubble tail */
-
-#dialog::after {
-
-    content: "";
-
-    position: absolute;
-
-    bottom: -8px;
-
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    width: 14px;
-    height: 14px;
-
-    background: white;
-
-    border-right: 2px solid #222;
-    border-bottom: 2px solid #222;
-
-    transform: translateX(-50%) rotate(45deg);
-
+        top .35s ease;
 }
 
 
 /* =========================
-   CLOSE BUTTON
+   CAT BODY
    ========================= */
 
-#closeBtn {
-
-    position: absolute;
-
-    top: -12px;
-    right: -5px;
-
-    width: 27px;
-    height: 27px;
-
-    border: none;
-
-    border-radius: 50%;
-
-    background: #222;
-
-    color: white;
-
-    font-size: 17px;
-
-    cursor: pointer;
-
-    z-index: 20;
-
+.cat-body {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: auto;
 }
 
-#closeBtn:hover {
 
-    background: #ff5555;
+/* =========================
+   CAT HEAD
+   ========================= */
 
-    transform: scale(1.1);
+.cat-head {
+    position: absolute;
+    width: 76px;
+    height: 68px;
+    left: 12px;
+    top: 15px;
+    background: #f4a261;
+    border: 3px solid #222;
+    border-radius: 48% 48% 45% 45%;
+    z-index: 3;
+}
 
+
+/* =========================
+   EARS
+   ========================= */
+
+.ear-left,
+.ear-right {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    background: #f4a261;
+    border: 3px solid #222;
+    top: -15px;
+    z-index: -1;
+}
+
+.ear-left {
+    left: 1px;
+    transform: rotate(-30deg);
+    border-radius: 5px 25px 5px 5px;
+}
+
+.ear-right {
+    right: 1px;
+    transform: rotate(30deg);
+    border-radius: 25px 5px 5px 5px;
+}
+
+.ear-left::after,
+.ear-right::after {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: #f7b6a5;
+    top: 7px;
+    left: 7px;
+    border-radius: 50%;
+}
+
+
+/* =========================
+   EYES
+   ========================= */
+
+.eye {
+    position: absolute;
+    width: 13px;
+    height: 17px;
+    background: #222;
+    border-radius: 50%;
+    top: 25px;
+}
+
+.eye-left {
+    left: 17px;
+}
+
+.eye-right {
+    right: 17px;
+}
+
+.eye::after {
+    content: "";
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+    top: 3px;
+    left: 3px;
+}
+
+
+/* =========================
+   NOSE
+   ========================= */
+
+.nose {
+    position: absolute;
+    left: 50%;
+    top: 43px;
+    transform: translateX(-50%);
+    width: 9px;
+    height: 7px;
+    background: #e76f51;
+    border-radius: 50%;
+}
+
+
+/* =========================
+   MOUTH
+   ========================= */
+
+.mouth {
+    position: absolute;
+    left: 50%;
+    top: 49px;
+    transform: translateX(-50%);
+    width: 18px;
+    height: 9px;
+    border-bottom: 2px solid #222;
+    border-radius: 50%;
+}
+
+
+/* =========================
+   CAT BODY
+   ========================= */
+
+.body {
+    position: absolute;
+    width: 67px;
+    height: 58px;
+    left: 17px;
+    top: 68px;
+    background: #f4a261;
+    border: 3px solid #222;
+    border-radius: 50% 50% 35% 35%;
+    z-index: 2;
+}
+
+
+/* =========================
+   BELLY
+   ========================= */
+
+.belly {
+    position: absolute;
+    width: 39px;
+    height: 32px;
+    background: #ffd6a5;
+    border-radius: 50%;
+    left: 11px;
+    top: 14px;
+}
+
+
+/* =========================
+   PAWS
+   ========================= */
+
+.paw {
+    position: absolute;
+    width: 23px;
+    height: 17px;
+    background: #f4a261;
+    border: 3px solid #222;
+    border-radius: 50%;
+    bottom: -7px;
+}
+
+.paw-left {
+    left: 3px;
+}
+
+.paw-right {
+    right: 3px;
+}
+
+
+/* =========================
+   TAIL
+   ========================= */
+
+.tail {
+    position: absolute;
+    width: 50px;
+    height: 45px;
+    border: 9px solid #f4a261;
+    border-left: none;
+    border-bottom: none;
+    border-radius: 0 45px 0 0;
+    right: -22px;
+    bottom: 8px;
+    transform: rotate(20deg);
+    z-index: 1;
+}
+
+
+/* =========================
+   CAT SHADOW
+   ========================= */
+
+.cat-shadow {
+    width: 72px;
+    height: 12px;
+    background: rgba(0,0,0,.15);
+    border-radius: 50%;
+    margin: 1px auto;
 }
 
 
@@ -324,20 +395,22 @@ body {
    WALKING
    ========================= */
 
-.walk {
-
-    animation: walk 0.45s infinite alternate;
-
+.walking .cat-body {
+    animation: bounce .35s infinite alternate;
 }
 
-@keyframes walk {
+@keyframes bounce {
 
     from {
-        transform: translateY(0) rotate(-3deg);
+        transform:
+            translateY(0)
+            rotate(-3deg);
     }
 
     to {
-        transform: translateY(-7px) rotate(3deg);
+        transform:
+            translateY(-7px)
+            rotate(3deg);
     }
 
 }
@@ -347,106 +420,268 @@ body {
    ANGRY
    ========================= */
 
-.angry {
-
-    animation: angry .18s infinite;
-
+.angry .cat-body {
+    animation: shake .15s infinite;
 }
 
-@keyframes angry {
+@keyframes shake {
 
     0% {
-        transform: rotate(-8deg);
+        transform: rotate(-7deg);
     }
 
     50% {
-        transform: rotate(8deg);
+        transform: rotate(7deg);
     }
 
     100% {
-        transform: rotate(-8deg);
+        transform: rotate(-7deg);
     }
 
 }
 
 
 /* =========================
-   SLEEPING
+   ANGRY FACE
    ========================= */
 
-.sleeping {
-
-    animation: sleep 2s infinite ease-in-out;
-
+.angry .eye {
+    height: 7px;
+    top: 30px;
+    border-radius: 50% 50% 0 0;
 }
 
-@keyframes sleep {
-
-    0% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(.94);
-    }
-
-    100% {
-        transform: scale(1);
-    }
-
+.angry .mouth {
+    border-bottom: none;
+    border-top: 3px solid #222;
+    top: 50px;
 }
 
 
 /* =========================
-   SABOTAGE WARNING
+   SPEECH BUBBLE
+   ========================= */
+
+#dialog {
+    position: absolute;
+    bottom: 135px;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 135px;
+    max-width: 200px;
+    padding: 8px 12px;
+    background: white;
+    border: 2px solid #222;
+    border-radius: 15px;
+    font-size: 12px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,.15);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s;
+}
+
+#dialog.show {
+    opacity: 1;
+}
+
+#dialog::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    width: 14px;
+    height: 14px;
+    background: white;
+    border-right: 2px solid #222;
+    border-bottom: 2px solid #222;
+    transform:
+        translateX(-50%)
+        rotate(45deg);
+}
+
+
+/* =========================
+   CLOSE BUTTON
+   ========================= */
+
+#closeBtn {
+    position: absolute;
+    top: -8px;
+    right: -3px;
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 50%;
+    background: #222;
+    color: white;
+    font-size: 18px;
+    line-height: 28px;
+    padding: 0;
+    cursor: pointer;
+    z-index: 100;
+}
+
+#closeBtn:hover {
+    background: #e63946;
+    transform: scale(1.1);
+}
+
+
+/* =========================
+   MOOD PANEL
+   ========================= */
+
+#moodPanel {
+    position: fixed;
+    left: 15px;
+    bottom: 15px;
+    padding: 9px 13px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.08);
+}
+
+#mood {
+    font-weight: bold;
+}
+
+
+/* =========================
+   SABOTAGE COUNTER
+   ========================= */
+
+#counter {
+    position: fixed;
+    right: 15px;
+    top: 15px;
+    padding: 8px 13px;
+    background: #222;
+    color: white;
+    border-radius: 15px;
+    font-size: 12px;
+}
+
+
+/* =========================
+   WARNING
    ========================= */
 
 #warning {
-
     position: fixed;
-
     top: 25px;
     left: 50%;
-
     transform: translateX(-50%);
-
     background: #222;
-
     color: white;
-
-    padding: 12px 20px;
-
+    padding: 12px 22px;
     border-radius: 20px;
-
     font-size: 14px;
-
     display: none;
-
     z-index: 10000;
+}
+
+
+/* =========================
+   FOOTSTEPS
+   ========================= */
+
+.step {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    background: #999;
+    border-radius: 50%;
+    opacity: .45;
+    pointer-events: none;
+    z-index: 9998;
+    animation: fadeStep 1s forwards;
+}
+
+@keyframes fadeStep {
+
+    from {
+        opacity: .5;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(.2);
+    }
 
 }
 
 
 /* =========================
-   CAT STATUS
+   FADE AWAY
    ========================= */
 
-#status {
+.leaving {
+    transform: scale(.2);
+    opacity: 0;
+    transition:
+        transform .7s,
+        opacity .7s;
+}
 
-    position: fixed;
 
-    bottom: 15px;
-    left: 15px;
+/* =========================
+   SABOTAGE FLASH
+   ========================= */
 
-    font-size: 11px;
+.sabotage-flash {
+    animation: flash .25s 3;
+}
 
-    color: #999;
+@keyframes flash {
 
-    opacity: .7;
+    0% {
+        filter: none;
+    }
+
+    50% {
+        filter: brightness(.8);
+    }
+
+    100% {
+        filter: none;
+    }
+
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 600px) {
+
+    .logo {
+        font-size: 58px;
+    }
+
+    .top {
+        gap: 12px;
+        padding-right: 15px;
+    }
+
+    #counter {
+        top: 70px;
+        right: 10px;
+    }
+
+    #moodPanel {
+        left: 10px;
+        bottom: 10px;
+    }
 
 }
 
 </style>
+
 </head>
 
 
@@ -454,11 +689,10 @@ body {
 
 
 <!-- =========================
-     FAKE GOOGLE
+     FAKE GOOGLE PAGE
      ========================= -->
 
 <div class="google-page">
-
 
     <div class="top">
 
@@ -495,6 +729,7 @@ body {
                     id="search"
                     type="text"
                     autocomplete="off"
+                    placeholder=""
                 >
 
             </div>
@@ -504,13 +739,16 @@ body {
 
                 <button
                     class="google-btn"
-                    onclick="searchGoogle()">
+                    id="searchButton">
 
                     Google Search
 
                 </button>
 
-                <button class="google-btn">
+
+                <button
+                    class="google-btn"
+                    id="luckyButton">
 
                     I'm Feeling Lucky
 
@@ -531,8 +769,7 @@ body {
 
 <div id="poocha">
 
-
-    <button id="closeBtn">×</button>
+    <button id="closeBtn" aria-label="Close Poocha">×</button>
 
 
     <div id="dialog">
@@ -540,47 +777,109 @@ body {
     </div>
 
 
-    <div id="cat">
-        🐱
+    <!-- CSS-DRAWN CAT -->
+
+    <div class="cat-body">
+
+        <div class="cat-head">
+
+            <div class="ear-left"></div>
+
+            <div class="ear-right"></div>
+
+            <div class="eye eye-left"></div>
+
+            <div class="eye eye-right"></div>
+
+            <div class="nose"></div>
+
+            <div class="mouth"></div>
+
+        </div>
+
+
+        <div class="body">
+
+            <div class="belly"></div>
+
+            <div class="paw paw-left"></div>
+
+            <div class="paw paw-right"></div>
+
+        </div>
+
+
+        <div class="tail"></div>
+
     </div>
 
 
-    <div class="shadow"></div>
+    <div class="cat-shadow"></div>
 
+</div>
+
+
+<!-- =========================
+     STATUS
+     ========================= -->
+
+<div id="moodPanel">
+
+    Mood:
+    <span id="mood">😼 Mischievous</span>
+
+</div>
+
+
+<div id="counter">
+
+    Sabotages: <span id="count">0</span>
 
 </div>
 
 
 <div id="warning">
+
     😈 POOCHA IS SABOTAGING YOU
-</div>
 
-
-<div id="status">
-    Poocha.exe is watching 👀
 </div>
 
 
 <script>
 
-
 /* =========================
    ELEMENTS
    ========================= */
 
-const pooCha = document.getElementById("poocha");
+const pooCha =
+    document.getElementById("poocha");
 
-const cat = document.getElementById("cat");
+const cat =
+    document.querySelector(".cat-body");
 
-const dialog = document.getElementById("dialog");
+const dialog =
+    document.getElementById("dialog");
 
-const search = document.getElementById("search");
+const search =
+    document.getElementById("search");
 
-const closeBtn = document.getElementById("closeBtn");
+const closeBtn =
+    document.getElementById("closeBtn");
 
-const warning = document.getElementById("warning");
+const warning =
+    document.getElementById("warning");
 
-const status = document.getElementById("status");
+const mood =
+    document.getElementById("mood");
+
+const count =
+    document.getElementById("count");
+
+const searchButton =
+    document.getElementById("searchButton");
+
+const luckyButton =
+    document.getElementById("luckyButton");
 
 
 /* =========================
@@ -591,54 +890,275 @@ let closed = false;
 
 let typingTimer = null;
 
-let mouseX = window.innerWidth / 2;
+let sabotageCount = 0;
 
-let mouseY = window.innerHeight / 2;
+let mouseX =
+    window.innerWidth / 2;
 
-let catX = window.innerWidth / 2;
+let mouseY =
+    window.innerHeight / 2;
 
-let catY = window.innerHeight * .7;
+let catX =
+    window.innerWidth * .72;
+
+let catY =
+    window.innerHeight * .70;
 
 let chasing = false;
+
+let sabotaging = false;
+
+let audioReady = false;
+
+let audioContext = null;
+
+
+/* =========================
+   CAT SOUND SYSTEM
+   ========================= */
+
+/*
+   Uses Web Audio instead of external files.
+
+   This creates simple:
+   - purring
+   - meowing
+   - angry growling
+
+   No audio file is required.
+*/
+
+function unlockAudio() {
+
+    if (audioReady) return;
+
+    try {
+
+        audioContext =
+            new (
+                window.AudioContext ||
+                window.webkitAudioContext
+            )();
+
+        if (
+            audioContext.state === "suspended"
+        ) {
+
+            audioContext.resume();
+
+        }
+
+        audioReady = true;
+
+    } catch (error) {
+
+        audioReady = false;
+
+    }
+
+}
+
+
+function catSound(type) {
+
+    if (closed) return;
+
+    unlockAudio();
+
+    if (!audioContext) return;
+
+
+    try {
+
+        const now =
+            audioContext.currentTime;
+
+        const oscillator =
+            audioContext.createOscillator();
+
+        const gain =
+            audioContext.createGain();
+
+
+        oscillator.connect(gain);
+
+        gain.connect(
+            audioContext.destination
+        );
+
+
+        if (type === "purr") {
+
+            oscillator.type = "sawtooth";
+
+            oscillator.frequency.setValueAtTime(
+                55,
+                now
+            );
+
+            gain.gain.setValueAtTime(
+                0.001,
+                now
+            );
+
+            gain.gain.exponentialRampToValueAtTime(
+                0.035,
+                now + .05
+            );
+
+            gain.gain.exponentialRampToValueAtTime(
+                0.001,
+                now + .55
+            );
+
+            oscillator.start(now);
+
+            oscillator.stop(
+                now + .6
+            );
+
+        }
+
+
+        else if (type === "meow") {
+
+            oscillator.type = "triangle";
+
+            oscillator.frequency.setValueAtTime(
+                420,
+                now
+            );
+
+            oscillator.frequency.exponentialRampToValueAtTime(
+                650,
+                now + .15
+            );
+
+            oscillator.frequency.exponentialRampToValueAtTime(
+                260,
+                now + .45
+            );
+
+            gain.gain.setValueAtTime(
+                0.001,
+                now
+            );
+
+            gain.gain.exponentialRampToValueAtTime(
+                0.08,
+                now + .04
+            );
+
+            gain.gain.exponentialRampToValueAtTime(
+                0.001,
+                now + .48
+            );
+
+            oscillator.start(now);
+
+            oscillator.stop(
+                now + .5
+            );
+
+        }
+
+
+        else if (type === "growl") {
+
+            oscillator.type = "sawtooth";
+
+            oscillator.frequency.setValueAtTime(
+                110,
+                now
+            );
+
+            oscillator.frequency.exponentialRampToValueAtTime(
+                70,
+                now + .5
+            );
+
+            gain.gain.setValueAtTime(
+                0.001,
+                now
+            );
+
+            gain.gain.exponentialRampToValueAtTime(
+                0.08,
+                now + .05
+            );
+
+            gain.gain.exponentialRampToValueAtTime(
+                0.001,
+                now + .55
+            );
+
+            oscillator.start(now);
+
+            oscillator.stop(
+                now + .6
+            );
+
+        }
+
+    } catch (error) {
+
+        // Sound is optional; visual demo continues normally.
+
+    }
+
+}
 
 
 /* =========================
    DIALOG
    ========================= */
 
-function say(message, duration = 1800) {
+function say(
+    text,
+    duration = 1800
+) {
 
     if (closed) return;
 
-    dialog.textContent = message;
+    dialog.textContent = text;
 
     dialog.classList.add("show");
 
 
-    setTimeout(() => {
+    setTimeout(
+        function() {
 
-        dialog.classList.remove("show");
+            dialog.classList.remove(
+                "show"
+            );
 
-    }, duration);
+        },
+        duration
+    );
 
 }
 
 
 /* =========================
-   CURSOR TRACKING
+   MOUSE TRACKING
    ========================= */
 
-document.addEventListener("mousemove", function(event) {
+document.addEventListener(
+    "mousemove",
+    function(event) {
 
-    mouseX = event.clientX;
+        mouseX =
+            event.clientX;
 
-    mouseY = event.clientY;
+        mouseY =
+            event.clientY;
 
-});
+    }
+);
 
 
 /* =========================
-   CAT MOVEMENT
+   MOVE CAT
    ========================= */
 
 function moveCat(x, y) {
@@ -646,12 +1166,25 @@ function moveCat(x, y) {
     if (closed) return;
 
 
-    const margin = 70;
+    const margin = 80;
 
 
-    x = Math.max(margin, Math.min(window.innerWidth - margin, x));
+    x = Math.max(
+        margin,
+        Math.min(
+            window.innerWidth - margin,
+            x
+        )
+    );
 
-    y = Math.max(margin, Math.min(window.innerHeight - margin, y));
+
+    y = Math.max(
+        110,
+        Math.min(
+            window.innerHeight - 150,
+            y
+        )
+    );
 
 
     catX = x;
@@ -659,485 +1192,138 @@ function moveCat(x, y) {
     catY = y;
 
 
-    pooCha.style.left = x + "px";
+    pooCha.style.left =
+        (x - 62) + "px";
 
-    pooCha.style.top = y + "px";
+    pooCha.style.top =
+        (y - 70) + "px";
 
 }
 
 
 /* =========================
-   RANDOM WALK
+   FOOTSTEPS
+   ========================= */
+
+function makeStep() {
+
+    if (closed) return;
+
+
+    const step =
+        document.createElement("div");
+
+    step.className =
+        "step";
+
+
+    step.style.left =
+        (
+            catX +
+            Math.random() * 35 -
+            18
+        ) + "px";
+
+
+    step.style.top =
+        (
+            catY +
+            55 +
+            Math.random() * 12
+        ) + "px";
+
+
+    document.body.appendChild(
+        step
+    );
+
+
+    setTimeout(
+        function() {
+
+            step.remove();
+
+        },
+        1000
+    );
+
+}
+
+
+/* =========================
+   WANDER
    ========================= */
 
 function wander() {
 
-    if (closed || chasing) return;
+    if (
+        closed ||
+        chasing ||
+        sabotaging
+    ) return;
 
 
-    const randomX =
-        Math.random() * (window.innerWidth - 140) + 70;
+    const x =
+        Math.random() *
+        (window.innerWidth - 160)
+        + 80;
 
 
-    const randomY =
-        Math.random() * (window.innerHeight - 220) + 100;
+    const y =
+        Math.random() *
+        (window.innerHeight - 260)
+        + 150;
 
 
-    cat.classList.add("walk");
+    pooCha.classList.add(
+        "walking"
+    );
 
 
-    moveCat(randomX, randomY);
+    moveCat(x, y);
+
+    makeStep();
 
 
-    const messages = [
+    const lines = [
 
         "purr...",
 
-        "Where are you going? 👀",
+        "I'm watching you 👀",
 
-        "hehe",
+        "Working? cringe.",
 
-        "I'm bored.",
-
-        "Hmm...",
-
-        "Working again?",
+        "You look productive.",
 
         "Suspicious...",
 
-        "meow."
+        "hehe",
+
+        "Stop working.",
+
+        "I could ruin this.",
+
+        "Your productivity is suspicious.",
+
+        "No thoughts. Only sabotage.",
+
+        "Meow.",
+
+        "I saw that.",
+
+        "You really thought I'd let you work?",
+
+        "Productivity detected. Disgusting."
 
     ];
 
 
-    if (Math.random() < .5) {
+    if (
+        Math.random() < .65
+    ) {
 
         say(
-            messages[
-                Math.floor(Math.random() * messages.length)
-            ],
-            1500
-        );
-
-    }
-
-}
-
-
-/* Move every 3 seconds */
-
-setInterval(wander, 3000);
-
-
-/* =========================
-   CHASE CURSOR
-   ========================= */
-
-setInterval(function() {
-
-    if (closed) return;
-
-
-    const dx = mouseX - catX;
-
-    const dy = mouseY - catY;
-
-    const distance = Math.sqrt(dx * dx + dy * dy);
-
-
-    /*
-       If cursor gets close,
-       cat becomes interested.
-    */
-
-    if (distance < 230) {
-
-        chasing = true;
-
-        cat.classList.add("walk");
-
-        status.textContent = "Poocha is chasing your cursor 👀";
-
-
-        /*
-           Move partway toward cursor
-           instead of instantly teleporting.
-        */
-
-        const newX =
-            catX + dx * .18;
-
-        const newY =
-            catY + dy * .18;
-
-
-        moveCat(newX, newY);
-
-
-        if (distance < 100) {
-
-            cat.classList.remove("walk");
-
-            cat.textContent = "😼";
-
-            say("Got you. 😼", 1000);
-
-        }
-
-    } else {
-
-        chasing = false;
-
-        cat.classList.remove("walk");
-
-        cat.textContent = "🐱";
-
-        status.textContent =
-            "Poocha.exe is watching 👀";
-
-    }
-
-}, 250);
-
-
-/* =========================
-   CLICK CAT
-   ========================= */
-
-pooCha.addEventListener("click", function(event) {
-
-    if (closed) return;
-
-
-    /*
-       Don't trigger when X is clicked.
-    */
-
-    if (event.target === closeBtn) return;
-
-
-    cat.classList.remove("walk");
-
-    cat.classList.add("angry");
-
-    cat.textContent = "😾";
-
-
-    say("DON'T TOUCH ME.", 1400);
-
-    status.textContent =
-        "Poocha is VERY angry 😾";
-
-
-    /*
-       Run away.
-    */
-
-    setTimeout(function() {
-
-        cat.classList.remove("angry");
-
-        cat.textContent = "🐱";
-
-
-        const newX =
-            Math.random() * (window.innerWidth - 140) + 70;
-
-
-        const newY =
-            Math.random() * (window.innerHeight - 220) + 100;
-
-
-        moveCat(newX, newY);
-
-
-        say("HMPH.", 1000);
-
-    }, 1000);
-
-});
-
-
-/* =========================
-   TYPING DETECTION
-   ========================= */
-
-search.addEventListener("input", function() {
-
-    if (closed) return;
-
-
-    clearTimeout(typingTimer);
-
-
-    cat.textContent = "👀";
-
-    cat.classList.remove("walk");
-
-
-    say("Hmm... what are you doing?", 1800);
-
-
-    status.textContent =
-        "Poocha is monitoring your work...";
-
-
-    /*
-       EXACTLY 3 SECONDS
-       AFTER TYPING STOPS
-    */
-
-    typingTimer = setTimeout(function() {
-
-        sabotage();
-
-    }, 3000);
-
-});
-
-
-/* =========================
-   SABOTAGE
-   ========================= */
-
-function sabotage() {
-
-    if (closed) return;
-
-
-    cat.classList.remove("walk");
-
-    cat.classList.add("angry");
-
-    cat.textContent = "😈";
-
-
-    say("hehe...", 2000);
-
-
-    status.textContent =
-        "POOCHA SABOTAGE MODE 😈";
-
-
-    warning.style.display = "block";
-
-
-    warning.textContent =
-        "😈 POOCHA IS SABOTAGING YOU";
-
-
-    /*
-       Make Poocha run toward
-       the search box.
-    */
-
-    const rect =
-        search.getBoundingClientRect();
-
-
-    moveCat(
-        rect.left + rect.width / 2,
-        rect.top + 70
-    );
-
-
-    /*
-       Then perform sabotage.
-    */
-
-    setTimeout(function() {
-
-        if (closed) return;
-
-
-        warning.textContent =
-            "⬅️ GOING BACK... 😈";
-
-
-        say("GO BACK. 😼", 1500);
-
-
-        setTimeout(function() {
-
-            goBack();
-
-        }, 500);
-
-
-    }, 900);
-
-}
-
-
-/* =========================
-   FAKE BACK
-   ========================= */
-
-function goBack() {
-
-    if (closed) return;
-
-
-    search.value = "";
-
-
-    cat.classList.remove("angry");
-
-    cat.textContent = "😼";
-
-
-    say(
-        "You're welcome. 😌",
-        1800
-    );
-
-
-    status.textContent =
-        "Poocha pressed BACK 😈";
-
-
-    warning.textContent =
-        "⬅️ POOCHA PRESSED BACK";
-
-
-    /*
-       Briefly flash the page.
-    */
-
-    document.body.style.transform =
-        "translateX(-8px)";
-
-
-    setTimeout(function() {
-
-        document.body.style.transform =
-            "translateX(8px)";
-
-    }, 80);
-
-
-    setTimeout(function() {
-
-        document.body.style.transform =
-            "translateX(0)";
-
-    }, 160);
-
-
-    setTimeout(function() {
-
-        warning.style.display =
-            "none";
-
-    }, 1800);
-
-}
-
-
-/* =========================
-   GOOGLE SEARCH BUTTON
-   ========================= */
-
-function searchGoogle() {
-
-    if (closed) return;
-
-
-    clearTimeout(typingTimer);
-
-
-    cat.classList.add("angry");
-
-    cat.textContent = "😾";
-
-
-    say("NO SEARCHING. 😾", 1500);
-
-
-    warning.style.display =
-        "block";
-
-
-    warning.textContent =
-        "😾 POOCHA SAID NO";
-
-
-    setTimeout(function() {
-
-        goBack();
-
-    }, 1000);
-
-}
-
-
-/* =========================
-   CLOSE POOCHA
-   ========================= */
-
-closeBtn.addEventListener("click", function(event) {
-
-    event.stopPropagation();
-
-
-    closed = true;
-
-
-    clearTimeout(typingTimer);
-
-
-    cat.classList.remove("angry");
-
-    cat.textContent = "🥺";
-
-
-    say("Aw...", 1000);
-
-
-    status.textContent =
-        "Poocha is leaving...";
-
-
-    /*
-       Make the whole cat shrink.
-    */
-
-    pooCha.style.transform =
-        "scale(.3)";
-
-
-    pooCha.style.opacity =
-        "0";
-
-
-    setTimeout(function() {
-
-        pooCha.style.display =
-            "none";
-
-    }, 900);
-
-});
-
-
-/* =========================
-   START POSITION
-   ========================= */
-
-moveCat(
-    window.innerWidth * .75,
-    window.innerHeight * .70
-);
-
-
-setTimeout(function() {
-
-    say("Psst... 👀", 1500);
-
-}, 1000);
-
-
-</script>
-
-</body>
-</html>
+            lines[
+                Math.floor(
+                    Math.random() *
+                    lines.leng
