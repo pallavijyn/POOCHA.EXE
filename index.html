@@ -3,188 +3,776 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Poocha 🐾 a cozy table guardian</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+
+<title>Google - Poocha.exe Demo</title>
+
 <style>
-:root{
-  --sky-top:#dcedf5;
-  --sky-bottom:#f8edd8;
-  --paper:#fffaf0;
-  --ink:#4a3728;
-  --ink-soft:#7a6656;
-  --coral:#ef9d6f;
-  --coral-deep:#e2795a;
-  --green:#93c49a;
-  --green-deep:#6fa679;
-  --teal:#7fb3ae;
-  --wood:#c98a53;
-  --wood-deep:#a9683a;
-}
-*{box-sizing:border-box;}
-body{
-  margin:0;
-  min-height:100vh;
-  font-family:'Quicksand',sans-serif;
-  color:var(--ink);
-  background:linear-gradient(var(--sky-top),var(--sky-bottom));
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  padding:24px;
-}
-h1{
-  font-family:'Baloo 2',sans-serif;
-  font-size:28px;
-  margin:0 0 4px;
-}
-.sub{
-  color:var(--ink-soft);
-  font-size:14px;
-  margin:0 0 18px;
-  text-align:center;
-}
-.stage{
-  position:relative;
-  width:min(640px,92vw);
-  height:420px;
-  background:var(--paper);
-  border-radius:20px;
-  box-shadow:0 12px 0 rgba(74,55,40,.08),0 20px 40px rgba(74,55,40,.15);
-  overflow:hidden;
-}
-.wall{position:absolute;inset:0 0 45% 0;background:linear-gradient(#f3e6d0,#efd9b8);}
-.floor{position:absolute;left:0;right:0;bottom:0;height:20%;background:#d8c19a;}
-.table{
-  position:absolute;
-  left:6%;
-  right:6%;
-  bottom:20%;
-  height:35%;
-  background:linear-gradient(var(--wood),var(--wood-deep));
-  border-radius:10px 10px 4px 4px;
-  box-shadow:inset 0 -8px 0 rgba(0,0,0,.12);
-}
-.table:before,.table:after{
-  content:"";
-  position:absolute;
-  bottom:-38px;
-  width:14px;
-  height:38px;
-  background:var(--wood-deep);
-  border-radius:0 0 4px 4px;
-}
-.table:before{left:14px;}
-.table:after{right:14px;}
-.tabletop-edge{
-  position:absolute;
-  left:0;right:0;top:0;height:10px;
-  background:rgba(255,255,255,.18);
-  border-radius:10px 10px 0 0;
-}
-.cat-wrap{
-  position:absolute;
-  bottom:20%;
-  left:50%;
-  transform:translateX(-50%);
-  width:170px;
-  height:150px;
-  cursor:pointer;
-  user-select:none;
-  transition:transform .18s ease;
-}
-.cat-wrap.dash{ transition:left .5s cubic-bezier(.3,.8,.3,1); }
-.cat{position:relative;width:100%;height:100%;transform-origin:bottom center;}
-.cat.purring{animation:purrbob .5s ease-in-out infinite;}
-.cat.angry{animation:shake .25s ease-in-out infinite;}
-.cat.dashing{animation:none;}
-.cat.swipe{animation:swipe .35s ease-out;}
-@keyframes swipe{0%{transform:rotate(0);}40%{transform:rotate(-8deg) translateX(10px);}100%{transform:rotate(0);}}
-@keyframes purrbob{0%,100%{transform:translateY(0);}50%{transform:translateY(-3px);}}
-@keyframes shake{0%,100%{transform:translate(0,0) rotate(0);}25%{transform:translate(-2px,0) rotate(-1deg);}75%{transform:translate(2px,0) rotate(1deg);}}
 
-.cat-photo{
-  width:100%;height:100%;
-  object-fit:contain;
-  pointer-events:none;
-  filter:drop-shadow(0 8px 6px rgba(0,0,0,.25));
-  transition:filter .2s ease;
+* {
+    box-sizing: border-box;
 }
-.cat.annoyed .cat-photo{filter:drop-shadow(0 8px 6px rgba(0,0,0,.25)) saturate(1.4) contrast(1.08);}
-.cat.angry .cat-photo{filter:drop-shadow(0 8px 6px rgba(226,121,90,.55)) saturate(1.6);}
 
-.zone{position:absolute;left:0;right:0;}
-.zone.head{top:0;height:45%;}
-.zone.body{bottom:0;height:55%;}
-
-.cup{
-  position:absolute;
-  bottom:calc(20% + 60px);
-  width:34px;height:40px;
-  background:var(--teal);
-  border-radius:4px 4px 10px 10px;
-  box-shadow:inset -4px 0 0 rgba(0,0,0,.12);
-  cursor:grab;
-  touch-action:none;
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: white;
+    color: #202124;
 }
-.cup:active{cursor:grabbing;}
-.cup:after{content:"";position:absolute;top:6px;right:-9px;width:14px;height:16px;border:4px solid var(--teal);border-left:none;border-radius:0 8px 8px 0;}
-.cup.gone{display:none;}
 
-.shard{position:absolute;width:6px;height:6px;background:var(--teal);opacity:.9;pointer-events:none;}
+/* =========================
+   GOOGLE PAGE
+   ========================= */
 
-.hud{
-  position:absolute;top:10px;left:10px;right:10px;
-  display:flex;gap:10px;justify-content:center;
-  font-family:'Baloo 2',sans-serif;font-size:12px;
+.google-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
-.bar-wrap{background:rgba(74,55,40,.1);border-radius:20px;padding:4px 10px;flex:1;max-width:150px;}
-.bar-label{display:flex;justify-content:space-between;margin-bottom:3px;}
-.bar-track{height:6px;background:rgba(74,55,40,.15);border-radius:6px;overflow:hidden;}
-.bar-fill{height:100%;border-radius:6px;transition:width .25s ease;}
-.bar-fill.happy{background:var(--green-deep);}
-.bar-fill.annoy{background:var(--coral-deep);}
 
-.toast{
-  position:absolute;left:50%;bottom:14px;transform:translate(-50%,10px);
-  background:var(--ink);color:var(--paper);
-  padding:8px 16px;border-radius:20px;font-size:13px;
-  font-family:'Baloo 2',sans-serif;
-  opacity:0;transition:opacity .25s ease, transform .25s ease;
-  pointer-events:none;white-space:nowrap;
-}
-.toast.show{opacity:1;transform:translate(-50%,0);}
+/* Top navigation */
 
-.controls{margin-top:16px;display:flex;gap:10px;}
-button{
-  font-family:'Baloo 2',sans-serif;
-  font-size:14px;
-  border:none;
-  padding:9px 16px;
-  border-radius:14px;
-  background:var(--coral);
-  color:#fff;
-  cursor:pointer;
-  box-shadow:0 4px 0 var(--coral-deep);
+.top {
+    height: 60px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 25px;
+    gap: 20px;
+    font-size: 14px;
 }
-button:active{transform:translateY(3px);box-shadow:none;}
-button.secondary{background:var(--teal);box-shadow:0 4px 0 #5d8f8a;}
+
+.top span {
+    cursor: pointer;
+}
+
+.apps {
+    font-size: 22px;
+}
+
+/* Main Google area */
+
+.main {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    padding-top: 150px;
+}
+
+.logo {
+    font-size: 82px;
+    font-weight: bold;
+    letter-spacing: -6px;
+    margin-bottom: 30px;
+}
+
+.logo .blue {
+    color: #4285f4;
+}
+
+.logo .red {
+    color: #ea4335;
+}
+
+.logo .yellow {
+    color: #fbbc05;
+}
+
+.logo .green {
+    color: #34a853;
+}
+
+/* Search */
+
+.search-container {
+    width: min(580px, 85vw);
+}
+
+.search-box {
+    height: 48px;
+
+    border: 1px solid #dfe1e5;
+
+    border-radius: 24px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 18px;
+
+    box-shadow: 0 1px 6px rgba(32,33,36,.15);
+}
+
+.search-icon {
+    font-size: 19px;
+    color: #777;
+    margin-right: 12px;
+}
+
+#search {
+    flex: 1;
+
+    border: none;
+    outline: none;
+
+    font-size: 17px;
+
+    color: #202124;
+
+    background: transparent;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+
+    gap: 12px;
+
+    margin-top: 30px;
+}
+
+.google-btn {
+    border: 1px solid #f8f9fa;
+
+    background: #f8f9fa;
+
+    padding: 10px 18px;
+
+    border-radius: 4px;
+
+    font-size: 14px;
+
+    cursor: pointer;
+}
+
+.google-btn:hover {
+    border-color: #dadce0;
+}
+
+/* =========================
+   POOCHA
+   ========================= */
+
+#poocha {
+
+    position: fixed;
+
+    right: 25px;
+    bottom: 25px;
+
+    width: 200px;
+
+    background: white;
+
+    border: 2px solid #222;
+
+    border-radius: 22px;
+
+    padding: 14px;
+
+    text-align: center;
+
+    box-shadow: 0 8px 30px rgba(0,0,0,.2);
+
+    z-index: 9999;
+
+    animation: appear .5s ease;
+
+}
+
+@keyframes appear {
+
+    from {
+        transform: scale(.5);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+}
+
+/* Close */
+
+#closeBtn {
+
+    position: absolute;
+
+    top: 7px;
+    right: 8px;
+
+    width: 25px;
+    height: 25px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #eee;
+
+    font-size: 17px;
+
+    cursor: pointer;
+
+}
+
+#closeBtn:hover {
+
+    background: #ff5c5c;
+
+    color: white;
+
+}
+
+/* Cat */
+
+#cat {
+
+    font-size: 75px;
+
+    line-height: 1;
+
+    margin-top: 5px;
+
+    cursor: pointer;
+
+    user-select: none;
+
+    transition: .2s;
+
+}
+
+#cat:hover {
+
+    transform: scale(1.08);
+
+}
+
+/* Dialogue */
+
+#dialog {
+
+    margin-top: 8px;
+
+    padding: 9px;
+
+    border-radius: 12px;
+
+    background: #f1f1f1;
+
+    font-size: 13px;
+
+    min-height: 35px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+/* Status */
+
+#status {
+
+    margin-top: 7px;
+
+    font-size: 10px;
+
+    color: #888;
+
+}
+
+/* Angry */
+
+.angry {
+
+    animation: shake .3s infinite;
+
+}
+
+@keyframes shake {
+
+    0% { transform: rotate(0); }
+
+    25% { transform: rotate(-8deg); }
+
+    50% { transform: rotate(8deg); }
+
+    75% { transform: rotate(-8deg); }
+
+    100% { transform: rotate(0); }
+
+}
+
+/* Sabotage flash */
+
+#warning {
+
+    position: fixed;
+
+    top: 25px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    background: #222;
+
+    color: white;
+
+    padding: 12px 22px;
+
+    border-radius: 20px;
+
+    font-size: 14px;
+
+    display: none;
+
+    z-index: 10000;
+
+}
+
 </style>
+
 </head>
+
 <body>
 
-<h1>Poocha 🐾</h1>
-<p class="sub">Pet the belly to make friends. Pet the head too much and you'll regret it.</p>
 
-<div class="stage" id="stage">
-  <div class="wall"></div>
-  <div class="floor"></div>
+<!-- =========================
+     FAKE GOOGLE
+     ========================= -->
 
-  <div class="table">
-    <div class="tabletop-edge"></div>
-    <div class="cup" id="cup" style="left:75%;"></div>
-  </div>
+<div class="google-page">
 
-  <div class="cat-wrap" id="catWrap
-    <div class="cat"
+    <div class="top">
+
+        <span>Gmail</span>
+        <span>Images</span>
+        <span class="apps">⋮⋮⋮</span>
+
+    </div>
+
+
+    <div class="main">
+
+        <div class="logo">
+
+            <span class="blue">G</span>
+            <span class="red">o</span>
+            <span class="yellow">o</span>
+            <span class="blue">g</span>
+            <span class="green">l</span>
+            <span class="red">e</span>
+
+        </div>
+
+
+        <div class="search-container">
+
+            <div class="search-box">
+
+                <span class="search-icon">⌕</span>
+
+                <input
+                    id="search"
+                    type="text"
+                    autocomplete="off"
+                    placeholder=""
+                >
+
+            </div>
+
+
+            <div class="buttons">
+
+                <button
+                    class="google-btn"
+                    onclick="searchGoogle()">
+                    Google Search
+                </button>
+
+                <button
+                    class="google-btn">
+                    I'm Feeling Lucky
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     POOCHA
+     ========================= -->
+
+<div id="poocha">
+
+    <button id="closeBtn">×</button>
+
+    <div id="cat">🐱</div>
+
+    <div id="dialog">
+        purr... purr...
+    </div>
+
+    <div id="status">
+        Poocha.exe is watching 👀
+    </div>
+
+</div>
+
+
+<div id="warning">
+    😈 POOCHA IS SABOTAGING YOU
+</div>
+
+
+<script>
+
+/* =========================
+   VARIABLES
+   ========================= */
+
+const search = document.getElementById("search");
+
+const cat = document.getElementById("cat");
+
+const dialog = document.getElementById("dialog");
+
+const status = document.getElementById("status");
+
+const pooCha = document.getElementById("poocha");
+
+const closeBtn = document.getElementById("closeBtn");
+
+const warning = document.getElementById("warning");
+
+
+let typingTimer;
+
+let sabotageTimer;
+
+let closed = false;
+
+
+/* =========================
+   CAT DIALOG
+   ========================= */
+
+function say(text) {
+
+    dialog.textContent = text;
+
+}
+
+
+/* =========================
+   USER STARTS TYPING
+   ========================= */
+
+search.addEventListener("input", function() {
+
+    if (closed) return;
+
+
+    clearTimeout(typingTimer);
+
+    clearTimeout(sabotageTimer);
+
+
+    cat.textContent = "👀";
+
+    say("Hmm... what are you doing?");
+
+    status.textContent = "Poocha.exe is observing...";
+
+
+    /*
+       Wait exactly 3 seconds
+       after the user stops typing.
+    */
+
+    typingTimer = setTimeout(function() {
+
+        sabotageTimer = setTimeout(function() {
+
+            sabotage();
+
+        }, 0);
+
+    }, 3000);
+
+});
+
+
+/* =========================
+   SABOTAGE
+   ========================= */
+
+function sabotage() {
+
+    if (closed) return;
+
+
+    cat.textContent = "😈";
+
+    cat.classList.add("angry");
+
+    say("hehe...");
+
+    status.textContent = "SABOTAGE MODE 😈";
+
+
+    warning.style.display = "block";
+
+
+    /*
+       Wait half a second so
+       the user sees the reaction.
+    */
+
+    setTimeout(function() {
+
+        warning.textContent = "⬅️ GOING BACK... 😈";
+
+    }, 400);
+
+
+    /*
+       FAKE BROWSER BACK
+
+       We change the page state
+       instead of actually leaving
+       the demo.
+    */
+
+    setTimeout(function() {
+
+        goBack();
+
+    }, 900);
+
+}
+
+
+/* =========================
+   FAKE BACK BUTTON
+   ========================= */
+
+function goBack() {
+
+    /*
+       Clear search.
+    */
+
+    search.value = "";
+
+
+    /*
+       Change cat.
+    */
+
+    cat.classList.remove("angry");
+
+    cat.textContent = "😼";
+
+    say("You thought you could work?");
+
+    status.textContent = "Poocha went BACK 😈";
+
+
+    warning.textContent = "⬅️ POOCHA PRESSED BACK";
+
+    warning.style.display = "block";
+
+
+    /*
+       Hide warning.
+    */
+
+    setTimeout(function() {
+
+        warning.style.display = "none";
+
+    }, 1800);
+
+}
+
+
+/* =========================
+   GOOGLE SEARCH BUTTON
+   ========================= */
+
+function searchGoogle() {
+
+    if (closed) return;
+
+    say("NO SEARCHING. 😾");
+
+    cat.textContent = "😾";
+
+    cat.classList.add("angry");
+
+    setTimeout(function() {
+
+        goBack();
+
+    }, 800);
+
+}
+
+
+/* =========================
+   CLICK CAT
+   ========================= */
+
+cat.addEventListener("click", function() {
+
+    if (closed) return;
+
+
+    cat.textContent = "😾";
+
+    cat.classList.add("angry");
+
+    say("DON'T TOUCH ME.");
+
+    status.textContent = "Poocha is ANGRY 😾";
+
+
+    setTimeout(function() {
+
+        cat.classList.remove("angry");
+
+        cat.textContent = "🐱";
+
+        say("purr...");
+
+        status.textContent = "Poocha.exe is watching 👀";
+
+    }, 1500);
+
+});
+
+
+/* =========================
+   CLOSE POOCHA
+   ========================= */
+
+closeBtn.addEventListener("click", function() {
+
+    closed = true;
+
+
+    clearTimeout(typingTimer);
+
+    clearTimeout(sabotageTimer);
+
+
+    cat.textContent = "🥺";
+
+    say("Aw...");
+
+    status.textContent = "You ruined my fun.";
+
+
+    setTimeout(function() {
+
+        pooCha.style.transform = "scale(.5)";
+
+        pooCha.style.opacity = "0";
+
+
+        setTimeout(function() {
+
+            pooCha.style.display = "none";
+
+        }, 400);
+
+    }, 900);
+
+});
+
+
+/* =========================
+   RANDOM IDLE DIALOG
+   ========================= */
+
+const messages = [
+
+    "purr...",
+
+    "I'm watching you 👀",
+
+    "Are you actually working?",
+
+    "Hmm... suspicious.",
+
+    "hehe",
+
+    "I could ruin this.",
+
+    "Your productivity disgusts me.",
+
+    "Meow.",
+
+    "Boring..."
+
+];
+
+
+setInterval(function() {
+
+    if (closed) return;
+
+
+    /*
+       Don't change the dialogue
+       while the user is actively typing.
+    */
+
+    if (document.activeElement === search) {
+
+        return;
+
+    }
+
+
+    const randomMessage =
+        messages[
+            Math.floor(Math.random() * messages.length)
+        ];
+
+
+    say(randomMessage);
+
+}, 5000);
+
+
+/* =========================
+   INITIAL MESSAGE
+   ========================= */
+
+setTimeout(function() {
+
+    say("I know what you're doing. 👀");
+
+}, 2500);
+
+
+</script>
+
+</body>
+</html>
